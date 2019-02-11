@@ -18,7 +18,7 @@ namespace SimUDuck
             PlayWithDuck( decoyDuck );
             ModelDuck modelDuck = new ModelDuck();
             PlayWithDuck( modelDuck );
-            modelDuck.SetFlyBehavior( FlyBehavior.FlyWithWings() );
+            modelDuck.SetFlyBehavior( FlyBehavior.FlyWithWingsAction() );
             PlayWithDuck( modelDuck );
         }
 

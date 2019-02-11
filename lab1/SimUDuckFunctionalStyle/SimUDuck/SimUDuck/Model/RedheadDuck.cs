@@ -6,7 +6,7 @@ namespace SimUDuck.Model
     class RedheadDuck : Duck
     {
         public RedheadDuck()
-            :base(FlyBehavior.FlyWithWings(), DanceBehavior.DanceMinuet, QuackBehavior.Quack)
+            :base(FlyBehavior.FlyWithWingsAction(), DanceBehavior.DanceMinuet, QuackBehavior.Quack)
         {
         }
 

@@ -6,7 +6,7 @@ namespace SimUDuck.Model
     class MallardDuck : Duck
     {
         public MallardDuck()
-            :base(FlyBehavior.FlyWithWings(), DanceBehavior.DanceWaltz, QuackBehavior.Quack)
+            :base(FlyBehavior.FlyWithWingsAction(), DanceBehavior.DanceWaltz, QuackBehavior.Quack)
         { 
         }
 

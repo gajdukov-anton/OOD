@@ -4,7 +4,7 @@ namespace SimUDuck.Behavior
 {
     class FlyBehavior
     {
-        public static Action FlyWithWings()
+        public static Action FlyWithWingsAction()
         {
             int count = 0;
             void Action()
