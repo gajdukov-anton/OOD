@@ -1,9 +1,5 @@
 ﻿using System;
-using SimUDuck.Action;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SimUDuck.Behavior;
 
 namespace SimUDuck.Model
 {

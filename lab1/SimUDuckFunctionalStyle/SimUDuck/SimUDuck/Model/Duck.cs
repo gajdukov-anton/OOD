@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimUDuck.Model
 {
     class Duck
     {
-        public delegate void FlyHandler();
+        /*public delegate void Action FlyHandler();
         public delegate void DanceHandler();
-        public delegate void QuackHandler();
-        private FlyHandler m_fly;
-        private DanceHandler m_dance;
-        private QuackHandler m_quack;
+        public delegate void QuackHandler();*/
+        private Action m_fly;
+        private Action m_dance;
+        private Action m_quack;
 
-        public Duck( FlyHandler flyHandler, DanceHandler danceHandler, QuackHandler quackHandler )
+        public Duck( Action flyHandler, Action danceHandler, Action quackHandler )
         {
             m_fly = flyHandler;
             m_dance = danceHandler;
@@ -37,12 +33,12 @@ namespace SimUDuck.Model
             m_fly();
         }
 
-        public void SetFlyBehavior( FlyHandler flyHandler )
+        public void SetFlyBehavior( Action flyHandler )
         {
             m_fly = flyHandler;
         }
 
-        public void SetDanceBehavior( DanceHandler danceHandler )
+        public void SetDanceBehavior( Action danceHandler )
         {
             m_dance = danceHandler;
         }

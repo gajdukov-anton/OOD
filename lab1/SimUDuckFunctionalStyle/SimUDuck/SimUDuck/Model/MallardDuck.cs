@@ -1,16 +1,12 @@
 ﻿using System;
-using SimUDuck.Action;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SimUDuck.Behavior;
 
 namespace SimUDuck.Model
 {
     class MallardDuck : Duck
     {
         public MallardDuck()
-            :base(FlyBehavior.FlyWithWings, DanceBehavior.DanceWaltz, QuackBehavior.Quack)
+            :base(FlyBehavior.FlyWithWings(), DanceBehavior.DanceWaltz, QuackBehavior.Quack)
         { 
         }
 

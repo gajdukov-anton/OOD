@@ -1,10 +1,6 @@
 ﻿using System;
 using SimUDuck.Model;
-using SimUDuck.Action;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SimUDuck.Behavior;
 
 namespace SimUDuck
 {
@@ -22,7 +18,7 @@ namespace SimUDuck
             PlayWithDuck( decoyDuck );
             ModelDuck modelDuck = new ModelDuck();
             PlayWithDuck( modelDuck );
-            modelDuck.SetFlyBehavior( FlyBehavior.FlyWithWings );
+            modelDuck.SetFlyBehavior( FlyBehavior.FlyWithWings() );
             PlayWithDuck( modelDuck );
         }
 
