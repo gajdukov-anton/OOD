@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace WeatherStation
 {
@@ -18,13 +14,13 @@ namespace WeatherStation
         public void NotifyObservers()
         {
             T data = GetChangedData();
-            foreach(var observer in _observers)
+            foreach ( var observer in _observers )
             {
-                observer.Update(data);
+                observer.Update( data );
             }
         }
 
-        public void RemoveObserver(IObserver<T> observer)
+        public void RemoveObserver( IObserver<T> observer )
         {
             _observers.Remove( observer );
         }
