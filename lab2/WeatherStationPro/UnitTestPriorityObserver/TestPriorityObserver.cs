@@ -12,10 +12,10 @@ namespace UnitTestPriorityObserver
         [TestMethod]
         public void TestOneObserver()
         {
-            CWeatherData weatherData = new CWeatherData();
-            CDisplay cDisplay = new CDisplay();
-            ObserverWithPriority<SWeatherInfo> observer = new ObserverWithPriority<SWeatherInfo>( cDisplay, 2 );
-            List<ObserverWithPriority<SWeatherInfo>> observerList = new List<ObserverWithPriority<SWeatherInfo>>();
+            WeatherData weatherData = new WeatherData();
+            Display cDisplay = new Display();
+            ObserverWithPriority<WeatherInfo> observer = new ObserverWithPriority<WeatherInfo>( cDisplay, 2 );
+            List<ObserverWithPriority<WeatherInfo>> observerList = new List<ObserverWithPriority<WeatherInfo>>();
             observerList.Add( observer );
 
 
@@ -26,19 +26,19 @@ namespace UnitTestPriorityObserver
         [TestMethod]
         public void TestSomeObserver()
         {
-            List<ObserverWithPriority<SWeatherInfo>> observerList = new List<ObserverWithPriority<SWeatherInfo>>();
-            var weatherData = new CWeatherData();
-            var cDisplay = new CDisplay();
-            var cDisplay1 = new CDisplay();
-            var statsDisplay = new CStatsDisplay();
-            var statsDisplay1 = new CStatsDisplay();
-            var cDisplay2 = new CDisplay();
+            List<ObserverWithPriority<WeatherInfo>> observerList = new List<ObserverWithPriority<WeatherInfo>>();
+            var weatherData = new WeatherData();
+            var cDisplay = new Display();
+            var cDisplay1 = new Display();
+            var statsDisplay = new StatsDisplay();
+            var statsDisplay1 = new StatsDisplay();
+            var cDisplay2 = new Display();
 
-            observerList.Add( new ObserverWithPriority<SWeatherInfo>( cDisplay1, 3 ) );
-            observerList.Add( new ObserverWithPriority<SWeatherInfo>( statsDisplay, 2 ) );
-            observerList.Add( new ObserverWithPriority<SWeatherInfo>( statsDisplay1, 2 ) );
-            observerList.Add( new ObserverWithPriority<SWeatherInfo>( cDisplay, 1 ) );
-            observerList.Add( new ObserverWithPriority<SWeatherInfo>( cDisplay2, 0 ) );
+            observerList.Add( new ObserverWithPriority<WeatherInfo>( cDisplay1, 3 ) );
+            observerList.Add( new ObserverWithPriority<WeatherInfo>( statsDisplay, 2 ) );
+            observerList.Add( new ObserverWithPriority<WeatherInfo>( statsDisplay1, 2 ) );
+            observerList.Add( new ObserverWithPriority<WeatherInfo>( cDisplay, 1 ) );
+            observerList.Add( new ObserverWithPriority<WeatherInfo>( cDisplay2, 0 ) );
 
             weatherData.RegisterObserver( cDisplay, 1 );
             weatherData.RegisterObserver( statsDisplay, 2 );
@@ -49,7 +49,7 @@ namespace UnitTestPriorityObserver
 
         }
 
-        private bool CompareObserverList( List<ObserverWithPriority<SWeatherInfo>> listOne, List<ObserverWithPriority<SWeatherInfo>> listTwo )
+        private bool CompareObserverList( List<ObserverWithPriority<WeatherInfo>> listOne, List<ObserverWithPriority<WeatherInfo>> listTwo )
         {
             if ( listOne.Count != listTwo.Count )
             {

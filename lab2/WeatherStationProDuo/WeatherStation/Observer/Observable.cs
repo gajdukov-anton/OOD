@@ -2,7 +2,7 @@
 
 namespace WeatherStation.Observer
 {
-    public struct ObserverWithPriority<T>
+    struct ObserverWithPriority<T>
     {
         public int priority;
         public IObserver<T> observer;
@@ -14,9 +14,15 @@ namespace WeatherStation.Observer
         }
     }
 
-    public abstract class CObservable<T> : IObservable<T>
+    public abstract class Observable<T> : IObservable<T>
     {
         private List<ObserverWithPriority<T>> _observerWithPriorityList = new List<ObserverWithPriority<T>>();
+        private LocationKind _location;
+
+        public Observable( LocationKind location )
+        {
+            _location = location;
+        }
 
         public void RegisterObserver( IObserver<T> observer, int priority )
         {
@@ -45,9 +51,9 @@ namespace WeatherStation.Observer
         public void NotifyObservers()
         {
             T data = GetChangedData();
-            foreach ( var observerWithPriority in _observerWithPriorityList )
+            for ( int i = 0; i < _observerWithPriorityList.Count; i++ )
             {
-                observerWithPriority.observer.Update( data );
+                _observerWithPriorityList [ i ].observer.Update( data );
             }
         }
 
@@ -62,9 +68,9 @@ namespace WeatherStation.Observer
             }
         }
 
-        public List<ObserverWithPriority<T>> GetObservers()
+        public LocationKind GetLocation()
         {
-            return _observerWithPriorityList;
+            return _location;
         }
 
         protected abstract T GetChangedData();

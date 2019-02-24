@@ -1,5 +1,5 @@
-﻿using WeatherStation.WeatherData;
-using System;
+﻿using System;
+using WeatherStation.WeatherData;
 
 namespace WeatherStation
 {
@@ -7,17 +7,16 @@ namespace WeatherStation
     {
         static void Main( string [] args )
         {
-            WeatherData.WeatherData wd = new WeatherData.WeatherData();
-            StatsDisplay statsDisplay = new StatsDisplay( CreateDefaultFuncForCalcAverWindDir() );
-            Display display = new Display();
+            WeatherDataOutside weatheDataOut = new WeatherDataOutside();
+            WeatherDataInside weatheDataIn = new WeatherDataInside();
 
+            Display display = new Display(weatheDataIn, weatheDataOut, 1);
+            StatsDisplay statsDisplay = new StatsDisplay( weatheDataIn, weatheDataOut, 2, CreateDefaultFuncForCalcAverWindDir());
             statsDisplay.AddFuncForCalcAverValue( "windDirection", CreateFuncForCalcAverWindDir() );
             statsDisplay.AddFuncForValidStatValue( "windDirection", CreateFuncForValidWindDir() );
 
-            wd.RegisterObserver( display, 5 );
-            wd.RegisterObserver( statsDisplay, 4 );
-            wd.SetMeasurements( 3, 0.7, 760, 10, 90 );
-            wd.SetMeasurements( 4, 0.8, 761, 8, 100 );
+            weatheDataOut.SetMeasurements( 3, 0.7, 760, 10, 90 );
+            weatheDataIn.SetMeasurements( 10, 0.8, 761 );
         }
 
         public static Func<double, int, double> CreateDefaultFuncForCalcAverWindDir()

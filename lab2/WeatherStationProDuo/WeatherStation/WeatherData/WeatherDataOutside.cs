@@ -2,13 +2,18 @@
 
 namespace WeatherStation.WeatherData
 {
-    public class CWeatherData : CObservable<SWeatherInfo>
+    class WeatherDataOutside : Observable<WeatherInfo>
     {
         private double _temperature = 0.0;
         private double _humidity = 0.0;
         private double _pressure = 760.0;
-        private double _windSpeed = 0.0;
         private double _windDirection = 0.0;
+        private double _windSpeed = 0.0;
+
+        public WeatherDataOutside(  )
+            : base( LocationKind.Outside )
+        {
+        }
 
         public double GetTemperature()
         {
@@ -47,18 +52,20 @@ namespace WeatherStation.WeatherData
             _pressure = pressure;
             _windSpeed = windSpeed;
             _windDirection = windDirection;
-
             MeasurementsChanged();
         }
 
-        protected override SWeatherInfo GetChangedData()
+        protected override WeatherInfo GetChangedData()
         {
-            SWeatherInfo info;
-            info.temperature = GetTemperature();
-            info.humidity = GetHumidity();
-            info.pressure = GetPressure();
-            info.windSpeed = GetWindSpeed();
-            info.windDirection = GetWindDirection();
+            OutsideSensorInfo outsideSensorInfo = new OutsideSensorInfo
+            {
+                Temperature = GetTemperature(),
+                Humidity = GetHumidity(),
+                Pressure = GetPressure(),
+                WindDirection = GetWindDirection(),
+                WindSpeed = GetWindSpeed()
+            };
+            WeatherInfo info = new WeatherInfo( this, outsideSensorInfo );
             return info;
         }
     }
