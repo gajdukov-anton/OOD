@@ -1,6 +1,6 @@
 ﻿namespace WeatherStation.Observer
 {
-    interface IObservable<T>
+    public interface IObservable<T>
     {
         void RegisterObserver( IObserver<T>  observer, int priority);
         void NotifyObservers();

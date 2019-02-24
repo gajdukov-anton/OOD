@@ -46,7 +46,6 @@ namespace UnitTestPriorityObserver
             weatherData.RegisterObserver( statsDisplay1, 2 );
             weatherData.RegisterObserver( cDisplay2, 0 );
             Assert.IsTrue( CompareObserverList( observerList, weatherData.GetObservers() ) );
-
         }
 
         private bool CompareObserverList( List<ObserverWithPriority<SWeatherInfo>> listOne, List<ObserverWithPriority<SWeatherInfo>> listTwo )

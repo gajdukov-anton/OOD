@@ -1,5 +1,4 @@
 ﻿using WeatherStation.WeatherData;
-using WeatherStation.Observer;
 
 namespace WeatherStation
 {
@@ -7,17 +6,13 @@ namespace WeatherStation
     {
         static void Main( string [] args )
         {
-            CWeatherData wd = new CWeatherData();
+            var wd = new CWeatherData();
+            var display1 = new CDisplay();
+            var display2 = new CDisplay();
+            var statsDisplay = new CStatsDisplay();
 
-            CDisplay display = new CDisplay();
-            wd.RegisterObserver( display, 0 );
-
-            CDisplay display1 = new CDisplay();
             wd.RegisterObserver( display1, 10 );
-            CDisplay display2 = new CDisplay();
             wd.RegisterObserver( display2, 3 );
-
-            CStatsDisplay statsDisplay = new CStatsDisplay();
             wd.RegisterObserver( statsDisplay, 4 );
 
             wd.SetMeasurements( 3, 0.7, 760 );

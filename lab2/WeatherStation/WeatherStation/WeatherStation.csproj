@@ -51,7 +51,7 @@
     <Compile Include="WeatherData\CDisplay.cs" />
     <Compile Include="WeatherData\CStatsDisplay.cs" />
     <Compile Include="WeatherData\CWeatherData.cs" />
-    <Compile Include="WeatherData\StatisticEssence.cs" />
+    <Compile Include="WeatherData\StatisticInfo.cs" />
     <Compile Include="WeatherData\SweatherInfo.cs" />
   </ItemGroup>
   <ItemGroup>

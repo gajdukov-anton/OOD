@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherStation", "WeatherStation\WeatherStation.csproj", "{559506C4-0BA1-48A7-B846-96285401D75B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestPriorityObserver", "UnitTestPriorityObserver\UnitTestPriorityObserver.csproj", "{D9FA937A-61E3-47DB-8BD0-5C3417745396}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestWeatherStation", "UnitTestPriorityObserver\UnitTestWeatherStation.csproj", "{D9FA937A-61E3-47DB-8BD0-5C3417745396}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -45,9 +45,9 @@ namespace WeatherStation.Observer
         public void NotifyObservers()
         {
             T data = GetChangedData();
-            foreach ( var observerWithPriority in _observerWithPriorityList )
+            for ( int i = 0; i < _observerWithPriorityList.Count; i++ )
             {
-                observerWithPriority.observer.Update( data );
+                _observerWithPriorityList[i].observer.Update( data );
             }
         }
 
@@ -55,6 +55,7 @@ namespace WeatherStation.Observer
         {
             for ( int i = 0; i < _observerWithPriorityList.Count; i++ )
             {
+                if ( _observerWithPriorityList [ i ].observer.Equals( observer ) )
                 if ( _observerWithPriorityList [ i ].observer.Equals( observer ) )
                 {
                     _observerWithPriorityList.RemoveAt( i );

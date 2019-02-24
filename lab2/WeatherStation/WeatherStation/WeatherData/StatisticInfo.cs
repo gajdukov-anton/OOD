@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WeatherStation.WeatherData
+﻿namespace WeatherStation.WeatherData
 {
-    public class StatisticEssence
+    public class StatisticInfo
     {
         private double _minValue = double.MaxValue;
         private double _maxValue = double.MinValue;
         private double _accValue = 0;
 
-        public StatisticEssence()
+        public StatisticInfo()
         {
         }
 

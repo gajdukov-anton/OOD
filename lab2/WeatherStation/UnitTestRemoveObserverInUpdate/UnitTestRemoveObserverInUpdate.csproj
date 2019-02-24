@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D9FA937A-61E3-47DB-8BD0-5C3417745396}</ProjectGuid>
+    <ProjectGuid>{BECB2B88-B298-4D58-9E78-8AC2EE2F4E21}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTestPriorityObserver</RootNamespace>
-    <AssemblyName>UnitTestPriorityObserver</AssemblyName>
+    <RootNamespace>UnitTestRemoveObserverInUpdate</RootNamespace>
+    <AssemblyName>UnitTestRemoveObserverInUpdate</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -49,7 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestPriorityObserver.cs" />
+    <Compile Include="TestRemoveObserverInUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

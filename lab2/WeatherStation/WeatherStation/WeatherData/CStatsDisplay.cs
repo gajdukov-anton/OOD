@@ -8,7 +8,7 @@ namespace WeatherStation.WeatherData
     public class CStatsDisplay : Observer.IObserver<SWeatherInfo>
     {
         private uint _countAcc = 0;
-        private Dictionary<string, StatisticEssence> _statisticEssenceDictionary = new Dictionary<string, StatisticEssence>();
+        private Dictionary<string, StatisticInfo> _statisticEssenceDictionary = new Dictionary<string, StatisticInfo>();
         private readonly List<FieldInfo> _sWeatherInfoFields = new List<FieldInfo>();
 
         public CStatsDisplay()
@@ -16,7 +16,7 @@ namespace WeatherStation.WeatherData
             _sWeatherInfoFields = typeof( SWeatherInfo ).GetFields().ToList();
             foreach ( var field in _sWeatherInfoFields )
             {
-                _statisticEssenceDictionary.Add( field.Name, new StatisticEssence() );
+                _statisticEssenceDictionary.Add( field.Name, new StatisticInfo() );
             }
         }
 
@@ -37,7 +37,7 @@ namespace WeatherStation.WeatherData
             Console.WriteLine( "----------------" );
         }
 
-        public Dictionary<string, StatisticEssence> GetStatisticsData()
+        public Dictionary<string, StatisticInfo> GetStatisticsData()
         {
             return _statisticEssenceDictionary;
         }
