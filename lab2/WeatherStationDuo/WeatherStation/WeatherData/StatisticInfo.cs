@@ -1,12 +1,12 @@
 ﻿namespace WeatherStation.WeatherData
 {
-    class StatisticEssence
+    public class StatisticInfo
     {
         private double _minValue = double.MaxValue;
         private double _maxValue = double.MinValue;
         private double _accValue = 0;
 
-        public StatisticEssence()
+        public StatisticInfo()
         {
         }
 

@@ -5,16 +5,15 @@ using WeatherStation.Observer;
 
 namespace WeatherStation.WeatherData
 {
-    public class CWeatherData : CObservable<SWeatherInfo>
+    public class WeatherData : Observable<WeatherInfo>
     {
         private double _temperature = 0.0;
         private double _humidity = 0.0;
         private double _pressure = 760.0;
-        private string _location;
 
-        public CWeatherData( string location )
+        public WeatherData( LocationKind location )
+            :base(location)
         {
-            _location = location;
         }
 
         public double GetTemperature()
@@ -46,13 +45,13 @@ namespace WeatherStation.WeatherData
             MeasurementsChanged();
         }
 
-        protected override SWeatherInfo GetChangedData()
+        protected override WeatherInfo GetChangedData()
         {
-            SWeatherInfo info;
+            WeatherInfo info;
             info.sensorInfo.temperature = GetTemperature();
             info.sensorInfo.humidity = GetHumidity();
             info.sensorInfo.pressure = GetPressure();
-            info.location = _location;
+            info.sender = this;
             return info;
         }
     }

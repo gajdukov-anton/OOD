@@ -1,24 +1,28 @@
 ﻿using System;
+using WeatherStation.Observer;
 
 namespace WeatherStation.WeatherData
 {
-    public class CDisplay : Observer.IObserver<SWeatherInfo>
+    public class Display : Observer<WeatherInfo>
     {
         private double _curTemp;
         private double _curHum;
         private double _curPres;
-        private string _location = "";
 
-        public CDisplay()
+        public Display( Observable<WeatherInfo> weatherStationInside, Observable<WeatherInfo> weatherStationOutside, int priority )
         {
+            _weatherStationInside = weatherStationInside;
+            _weatherStationOutside = weatherStationOutside;
+            _weatherStationInside.RegisterObserver( this, priority );
+            _weatherStationOutside.RegisterObserver( this, priority );
         }
 
-        public void Update( SWeatherInfo data )
+        public override void Update( WeatherInfo data )
         {
             _curTemp = data.sensorInfo.temperature;
             _curHum = data.sensorInfo.humidity;
             _curPres = data.sensorInfo.pressure;
-            _location = data.location;
+            _lastWeatherStation = data.sender;
             DisplayCurrentData();
         }
 
@@ -27,7 +31,7 @@ namespace WeatherStation.WeatherData
             Console.WriteLine( $"Current Temp {_curTemp}" );
             Console.WriteLine( $"Current Hum {_curHum}" );
             Console.WriteLine( $"Current Pressure {_curPres}" );
-            Console.WriteLine( $"Location {_location}" );
+            Console.WriteLine( $"Location {_lastWeatherStation.GetLocation().ToString()}" );
             Console.WriteLine( "----------------" );
         }
 
@@ -44,11 +48,6 @@ namespace WeatherStation.WeatherData
         public double GetCurrentPressure()
         {
             return _curPres;
-        }
-
-        public string GetLocation()
-        {
-            return _location;
         }
     }
 }

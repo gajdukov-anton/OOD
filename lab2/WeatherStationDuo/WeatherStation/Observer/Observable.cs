@@ -14,9 +14,15 @@ namespace WeatherStation.Observer
         }
     }
 
-    public abstract class CObservable<T> : IObservable<T>
+    public abstract class Observable<T> : IObservable<T>
     {
         private List<ObserverWithPriority<T>> _observerWithPriorityList = new List<ObserverWithPriority<T>>();
+        private LocationKind _location;
+
+        public Observable( LocationKind location )
+        {
+            _location = location;
+        }
 
         public void RegisterObserver( IObserver<T> observer, int priority )
         {
@@ -45,9 +51,9 @@ namespace WeatherStation.Observer
         public void NotifyObservers()
         {
             T data = GetChangedData();
-            foreach ( var observer in _observerWithPriorityList )
+            for ( int i = 0; i < _observerWithPriorityList.Count; i++ )
             {
-                observer.observer.Update( data );
+                _observerWithPriorityList [ i ].observer.Update( data );
             }
         }
 
@@ -60,6 +66,11 @@ namespace WeatherStation.Observer
                     _observerWithPriorityList.RemoveAt( i );
                 }
             }
+        }
+
+        public LocationKind GetLocation()
+        {
+            return _location;
         }
 
         protected abstract T GetChangedData();
