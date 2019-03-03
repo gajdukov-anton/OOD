@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cofee", "cofee\cofee.csproj", "{7E9F5598-4461-45CF-90F8-97FD691C6D02}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E9F5598-4461-45CF-90F8-97FD691C6D02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E9F5598-4461-45CF-90F8-97FD691C6D02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E9F5598-4461-45CF-90F8-97FD691C6D02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E9F5598-4461-45CF-90F8-97FD691C6D02}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F4B0160B-3374-4C94-A2DE-35588C16A732}
+	EndGlobalSection
+EndGlobal
