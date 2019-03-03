@@ -2,16 +2,10 @@
 
 namespace WeatherStation.WeatherData
 {
-    public struct SensorInfo
+    public  struct WeatherInfo
     {
         public double temperature;
         public double humidity;
         public double pressure;
-    };
-
-    public  struct WeatherInfo
-    {
-        public Observable<WeatherInfo> sender;
-        public SensorInfo sensorInfo;
     };
 }

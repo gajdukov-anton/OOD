@@ -45,9 +45,10 @@ namespace WeatherStation.Observer
         public void NotifyObservers()
         {
             T data = GetChangedData();
-            for ( int i = 0; i < _observerWithPriorityList.Count; i++ )
+            var observers = new List<ObserverWithPriority<T>>( _observerWithPriorityList );
+            foreach (var item in observers)
             {
-                _observerWithPriorityList[i].observer.Update( data );
+                item.observer.Update(data);
             }
         }
 

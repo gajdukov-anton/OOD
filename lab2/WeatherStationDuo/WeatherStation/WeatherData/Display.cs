@@ -17,12 +17,12 @@ namespace WeatherStation.WeatherData
             _weatherStationOutside.RegisterObserver( this, priority );
         }
 
-        public override void Update( WeatherInfo data )
+        public override void Update( WeatherInfo data, Observer.IObservable<WeatherInfo> observable )
         {
-            _curTemp = data.sensorInfo.temperature;
-            _curHum = data.sensorInfo.humidity;
-            _curPres = data.sensorInfo.pressure;
-            _lastWeatherStation = data.sender;
+            _curTemp = data.temperature;
+            _curHum = data.humidity;
+            _curPres = data.pressure;
+            _lastWeatherStation = observable;
             DisplayCurrentData();
         }
 
@@ -31,7 +31,7 @@ namespace WeatherStation.WeatherData
             Console.WriteLine( $"Current Temp {_curTemp}" );
             Console.WriteLine( $"Current Hum {_curHum}" );
             Console.WriteLine( $"Current Pressure {_curPres}" );
-            Console.WriteLine( $"Location {_lastWeatherStation.GetLocation().ToString()}" );
+            Console.WriteLine( $"Location {_lastWeatherStation.Location.ToString()}" );
             Console.WriteLine( "----------------" );
         }
 

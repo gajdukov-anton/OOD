@@ -48,10 +48,9 @@ namespace WeatherStation.WeatherData
         protected override WeatherInfo GetChangedData()
         {
             WeatherInfo info;
-            info.sensorInfo.temperature = GetTemperature();
-            info.sensorInfo.humidity = GetHumidity();
-            info.sensorInfo.pressure = GetPressure();
-            info.sender = this;
+            info.temperature = GetTemperature();
+            info.humidity = GetHumidity();
+            info.pressure = GetPressure();
             return info;
         }
     }

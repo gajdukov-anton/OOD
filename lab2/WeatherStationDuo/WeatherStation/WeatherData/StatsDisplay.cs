@@ -19,21 +19,21 @@ namespace WeatherStation.WeatherData
             _weatherStationInside.RegisterObserver( this, priority );
             _weatherStationOutside.RegisterObserver( this, priority );
 
-            _sWeatherInfoFields = typeof( SensorInfo ).GetFields().ToList();
+            _sWeatherInfoFields = typeof( WeatherInfo ).GetFields().ToList();
             foreach ( var field in _sWeatherInfoFields )
             {
                 _statisticInfoDictionary.Add( field.Name, new StatisticInfo() );
             }
         }
 
-        public override void Update( WeatherInfo data )
+        public override void Update( WeatherInfo data, Observer.IObservable<WeatherInfo> observable )
         {
             foreach ( var field in _sWeatherInfoFields )
             {
-                _statisticInfoDictionary [ field.Name ].AddNewValue( ( double ) field.GetValue( data.sensorInfo ) );
+                _statisticInfoDictionary [ field.Name ].AddNewValue( ( double ) field.GetValue( data ) );
             }
             ++_countAcc;
-            _lastWeatherStation = data.sender;
+            _lastWeatherStation = ( Observable<WeatherInfo> ) observable;
             DisplayCurrentData();
         }
 
@@ -45,7 +45,7 @@ namespace WeatherStation.WeatherData
                 Console.WriteLine( $"Min {statisticField.Key}   {statisticField.Value.GetMinValue()}" );
                 Console.WriteLine( $"Average {statisticField.Key}   {statisticField.Value.GetAccValue() / _countAcc}" );
             }
-            Console.WriteLine( $"Location {_lastWeatherStation.GetLocation().ToString()}" );
+            Console.WriteLine( $"Location {_lastWeatherStation.Location.ToString()}" );
             Console.WriteLine( "----------------" );
         }
 

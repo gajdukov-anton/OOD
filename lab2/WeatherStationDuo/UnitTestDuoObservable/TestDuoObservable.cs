@@ -16,8 +16,8 @@ namespace UnitTestDuoObservable
             var display = new Display( weatheDataIn , weatheDataOut, 2);
             var statsDisplay = new StatsDisplay( weatheDataIn, weatheDataOut, 2 );
             weatheDataOut.SetMeasurements( 3, 0.7, 760 );
-            Assert.AreEqual( LocationKind.Outside, display.GetLastWeatherStation().GetLocation() );
-            Assert.AreEqual( LocationKind.Outside, statsDisplay.GetLastWeatherStation().GetLocation() );
+            Assert.AreEqual( LocationKind.Outside, display.GetLastWeatherStation().Location );
+            Assert.AreEqual( LocationKind.Outside, statsDisplay.GetLastWeatherStation().Location );
             Assert.AreEqual( 3, display.GetCurrentTemperature() );
             Assert.AreEqual( 0.7, display.GetCurrentHumidity() );
             Assert.AreEqual( 760, display.GetCurrentPressure() );
@@ -31,11 +31,11 @@ namespace UnitTestDuoObservable
             Assert.AreEqual( 10, statsDisplay.GetStatisticInfoDictionary() [ "temperature" ].GetMaxValue() );
             Assert.AreEqual( 0.8, statsDisplay.GetStatisticInfoDictionary() [ "humidity" ].GetMaxValue() );
             Assert.AreEqual( 761, statsDisplay.GetStatisticInfoDictionary() [ "pressure" ].GetMaxValue() );
-            Assert.AreEqual( LocationKind.Inside, display.GetLastWeatherStation().GetLocation() );
-            Assert.AreEqual( LocationKind.Inside, statsDisplay.GetLastWeatherStation().GetLocation() );
+            Assert.AreEqual( LocationKind.Inside, display.GetLastWeatherStation().Location );
+            Assert.AreEqual( LocationKind.Inside, statsDisplay.GetLastWeatherStation().Location );
             weatheDataOut.SetMeasurements( 3, 0.7, 760 );
-            Assert.AreEqual( LocationKind.Outside, display.GetLastWeatherStation().GetLocation() );
-            Assert.AreEqual( LocationKind.Outside, statsDisplay.GetLastWeatherStation().GetLocation() );
+            Assert.AreEqual( LocationKind.Outside, display.GetLastWeatherStation().Location );
+            Assert.AreEqual( LocationKind.Outside, statsDisplay.GetLastWeatherStation().Location );
         }
 
         [TestMethod]
