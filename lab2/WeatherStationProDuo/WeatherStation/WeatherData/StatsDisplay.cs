@@ -1,82 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using WeatherStation.Observer;
 
 namespace WeatherStation.WeatherData
 {
-    public class StatsDisplay : Observer<WeatherInfo>
+    public class StatsDisplayInfo
     {
-        private int _countAcc = 0;
-        private Dictionary<string, Func<double, int, double>> _functionsForCalcAver = new Dictionary<string, Func<double, int, double>>();
-        private readonly Func<double, int, double> _defaultFuncForCalcAver;
-        private Dictionary<string, Func<double, double>> _functionsForValidStatValue = new Dictionary<string, Func<double, double>>();
+        public StatisticHandler TemperatureInfo { get; }
+        public StatisticHandler PressureInfo { get; }
+        public StatisticHandler HumidityInfo { get; }
+        public WindStatisticHandler WindInfo { get; }
+        public int CountAcc = 0;
 
-        public StatsDisplay( Observable<WeatherInfo> weatherStationInside, Observable<WeatherInfo> weatherStationOutside, int priority, Func<double, int, double> defaultFuncForCalcAver )
+        public StatsDisplayInfo()
+        {
+            TemperatureInfo = new StatisticHandler( "temperature" );
+            PressureInfo = new StatisticHandler( "pressure" );
+            HumidityInfo = new StatisticHandler( "humidity" );
+            WindInfo = new WindStatisticHandler();
+        }
+    }
+
+    public class StatsDisplay : Observer.IObserver<WeatherInfo>
+    {
+        private Observer.IObservable<WeatherInfo> _weatherStationOutside;
+        private Observer.IObservable<WeatherInfo> _weatherStationInside;
+        private Dictionary<Observer.IObservable<WeatherInfo>, StatsDisplayInfo> _statsDisplayInfoDictionary = new Dictionary<Observer.IObservable<WeatherInfo>, StatsDisplayInfo>();
+
+        public StatsDisplay( Observable<WeatherInfo> weatherStationInside, Observable<WeatherInfo> weatherStationOutside, int priority )
         {
             _weatherStationInside = weatherStationInside;
             _weatherStationOutside = weatherStationOutside;
             _weatherStationInside.RegisterObserver( this, priority );
             _weatherStationOutside.RegisterObserver( this, priority );
-            _defaultFuncForCalcAver = defaultFuncForCalcAver;
+            _statsDisplayInfoDictionary.Add( _weatherStationInside, new StatsDisplayInfo() );
+            _statsDisplayInfoDictionary.Add( _weatherStationOutside, new StatsDisplayInfo() );
+
         }
 
-        public override void Update( WeatherInfo data )
+        public void Update( WeatherInfo data, Observer.IObservable<WeatherInfo> observable )
         {
-            ++_countAcc;
-            var weatherInfoFields = CreateSensorInfoFields( data );
-            var statisticInfoDictionary = CreateStatisticInfoDictionary( weatherInfoFields );
-            foreach ( var field in weatherInfoFields )
+
+            if ( observable == _weatherStationOutside )
             {
-                double value = ValidateStatisticValue( field.Name, ( double ) field.GetValue( data.GetSensorInfo() ) );
-                statisticInfoDictionary [ field.Name ].SetMinMaxValue( value );
-                statisticInfoDictionary [ field.Name ].AverageValue = CalculateAverageValue( field.Name, value );
+                _statsDisplayInfoDictionary [ _weatherStationOutside ].CountAcc++;
+                DisplayStatisticData( _statsDisplayInfoDictionary[_weatherStationOutside].TemperatureInfo.CalculateStatisticInfo( _statsDisplayInfoDictionary [ _weatherStationOutside ].CountAcc, data.temperature ) );
+                DisplayStatisticData( _statsDisplayInfoDictionary [ _weatherStationOutside ].HumidityInfo.CalculateStatisticInfo( _statsDisplayInfoDictionary [ _weatherStationOutside ].CountAcc, data.humidity ) );
+                DisplayStatisticData( _statsDisplayInfoDictionary [ _weatherStationOutside ].PressureInfo.CalculateStatisticInfo( _statsDisplayInfoDictionary [ _weatherStationOutside ].CountAcc, data.pressure ) );
+                DisplayStatisticData( _statsDisplayInfoDictionary [ _weatherStationOutside ].WindInfo.CalculateWindSpeedStatisticInfo( _statsDisplayInfoDictionary [ _weatherStationOutside ].CountAcc, ( WeatherInfoOutside ) data ) );
+                DisplayStatisticData( _statsDisplayInfoDictionary [ _weatherStationOutside ].WindInfo.CalculateWindDirectionStatisticInfo( _statsDisplayInfoDictionary [ _weatherStationOutside ].CountAcc, ( WeatherInfoOutside ) data ) );
             }
-            foreach ( var statisticField in statisticInfoDictionary )
+            else
             {
-                Console.WriteLine( $"Max {statisticField.Key}  {statisticField.Value.GetMaxValue()}" );
-                Console.WriteLine( $"Min {statisticField.Key}   {statisticField.Value.GetMinValue()}" );
-                Console.WriteLine( $"Average {statisticField.Key}   {statisticField.Value.AverageValue}" );
-                Console.WriteLine();
+                _statsDisplayInfoDictionary [ _weatherStationInside ].CountAcc++;
+                DisplayStatisticData( _statsDisplayInfoDictionary [ _weatherStationInside ].TemperatureInfo.CalculateStatisticInfo( _statsDisplayInfoDictionary [ _weatherStationInside ].CountAcc, data.temperature ) );
+                DisplayStatisticData( _statsDisplayInfoDictionary [ _weatherStationInside ].HumidityInfo.CalculateStatisticInfo( _statsDisplayInfoDictionary [ _weatherStationInside ].CountAcc, data.humidity ) );
+                DisplayStatisticData( _statsDisplayInfoDictionary [ _weatherStationInside ].PressureInfo.CalculateStatisticInfo( _statsDisplayInfoDictionary [ _weatherStationInside ].CountAcc, data.pressure ) );
             }
-            Console.WriteLine( $"Location {data.GetSender().GetLocation().ToString()}" );
+            Console.WriteLine( $"Location {observable.Location}" );
             Console.WriteLine( "----------------" );
         }
 
-        public void AddFuncForCalcAverValue( string statisticField, Func<double, int, double> function )
-        {
-            _functionsForCalcAver.Add( statisticField, function );
-        }
 
-        public void AddFuncForValidStatValue( string statisticField, Func<double, double> function )
+        private void DisplayStatisticData( StatisticInfo info )
         {
-            _functionsForValidStatValue.Add( statisticField, function );
-        }
-
-        private List<FieldInfo> CreateSensorInfoFields( WeatherInfo data )
-        {
-            return data.GetSender() == _weatherStationOutside ? typeof( OutsideSensorInfo ).GetFields().ToList() : typeof( SensorInfo ).GetFields().ToList();
-        }
-
-        private Dictionary<string, StatisticInfo> CreateStatisticInfoDictionary( List<FieldInfo> weatherInfoFields )
-        {
-            var statisticInfoDictionary = new Dictionary<string, StatisticInfo>();
-            foreach ( var field in weatherInfoFields )
+            if ( info.MaxValue != null )
             {
-                statisticInfoDictionary.Add( field.Name, new StatisticInfo() );
+                Console.WriteLine( $"Max {info.EntityName} {info.MaxValue}" );
             }
-            return statisticInfoDictionary;
+            if ( info.MinValue != null )
+            {
+                Console.WriteLine( $"Min {info.EntityName} {info.MinValue}" );
+            }
+            Console.WriteLine( $"Average {info.EntityName} {( info.AverageValue != null ? info.AverageValue.ToString() : "undefind" )}" );
         }
 
-        private double ValidateStatisticValue( string fieldName, double value )
-        {
-            return _functionsForValidStatValue.TryGetValue( fieldName, out Func<double, double> validate ) ? validate( value ) : value;
-        }
-
-        private double CalculateAverageValue( string fieldName, double value )
-        {
-            return _functionsForCalcAver.TryGetValue( fieldName, out Func<double, int, double> action ) ? action( value, _countAcc ) : _defaultFuncForCalcAver( value, _countAcc );
-        }
     }
 }

@@ -53,12 +53,12 @@ namespace WeatherStation.WeatherData
 
         protected override WeatherInfo GetChangedData()
         {
-            WeatherInfo info;
+            WeatherInfo info = new WeatherInfo();
             info.temperature = GetTemperature();
             info.humidity = GetHumidity();
             info.pressure = GetPressure();
-            info.windSpeed = GetWindSpeed();
-            info.windDirection = GetWindDirection();
+            info.windInfo.windSpeed = GetWindSpeed();
+            info.windInfo.windDirection = GetWindDirection();
             return info;
         }
     }

@@ -1,35 +1,15 @@
-﻿namespace WeatherStation.WeatherData
+﻿
+namespace WeatherStation.WeatherData
 {
     public class StatisticInfo
     {
-        public double AverageValue { get; set; }
-        public double _minValue = double.MaxValue;
-        public double _maxValue = double.MinValue;
-
-        public StatisticInfo()
+        public StatisticInfo( string entityName )
         {
+            EntityName = entityName;
         }
-
-        public void SetMinMaxValue( double value )
-        {
-            if ( value > _maxValue )
-            {
-                _maxValue = value;
-            }
-            if ( value < _minValue )
-            {
-                _minValue = value;
-            }
-        }
-
-        public double GetMaxValue()
-        {
-            return _maxValue;
-        }
-
-        public double GetMinValue()
-        {
-            return _minValue;
-        }
+        public double? MaxValue { get; set; }
+        public double? MinValue { get; set; }
+        public double? AverageValue { get; set; }
+        public string EntityName { get; }
     }
 }

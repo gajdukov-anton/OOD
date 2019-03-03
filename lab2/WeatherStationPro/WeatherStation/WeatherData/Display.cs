@@ -14,8 +14,8 @@ namespace WeatherStation.WeatherData
             Console.WriteLine( $"Current Temp {data.temperature}" );
             Console.WriteLine( $"Current Hum {data.humidity}" );
             Console.WriteLine( $"Current Pressure {data.pressure}" );
-            Console.WriteLine( $"Current Wind Speed {data.windSpeed}" );
-            Console.WriteLine( $"Current Wind Direction {data.windDirection}" );
+            Console.WriteLine( $"Current Wind Speed {data.windInfo.windSpeed}" );
+            Console.WriteLine( $"Current Wind Direction {data.windInfo.windDirection}" );
             Console.WriteLine( "----------------" );
         }
       

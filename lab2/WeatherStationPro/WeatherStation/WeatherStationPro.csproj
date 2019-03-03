@@ -49,10 +49,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WeatherData\Display.cs" />
+    <Compile Include="WeatherData\IStatisticHandler.cs" />
+    <Compile Include="WeatherData\IWindStatisticHandler.cs" />
+    <Compile Include="WeatherData\StatisticInfo.cs" />
     <Compile Include="WeatherData\StatsDisplay.cs" />
     <Compile Include="WeatherData\WeatherData.cs" />
-    <Compile Include="WeatherData\StatisticInfo.cs" />
+    <Compile Include="WeatherData\StatisticHandler.cs" />
     <Compile Include="WeatherData\WeatherInfo.cs" />
+    <Compile Include="WeatherData\WindStatisticHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

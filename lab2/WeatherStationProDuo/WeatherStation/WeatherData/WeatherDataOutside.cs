@@ -57,16 +57,15 @@ namespace WeatherStation.WeatherData
 
         protected override WeatherInfo GetChangedData()
         {
-            OutsideSensorInfo outsideSensorInfo = new OutsideSensorInfo
+            WeatherInfoOutside outsideSensorInfo = new WeatherInfoOutside
             {
-                Temperature = GetTemperature(),
-                Humidity = GetHumidity(),
-                Pressure = GetPressure(),
-                WindDirection = GetWindDirection(),
-                WindSpeed = GetWindSpeed()
+                temperature = GetTemperature(),
+                humidity = GetHumidity(),
+                pressure = GetPressure(),
             };
-            WeatherInfo info = new WeatherInfo( this, outsideSensorInfo );
-            return info;
+            outsideSensorInfo.windInfo.windDirection = GetWindDirection();
+            outsideSensorInfo.windInfo.windSpeed = GetWindSpeed();
+            return outsideSensorInfo;
         }
     }
 }

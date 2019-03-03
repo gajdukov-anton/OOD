@@ -44,14 +44,13 @@ namespace WeatherStation.WeatherData
 
         protected override WeatherInfo GetChangedData()
         {
-            SensorInfo sensorInfo = new SensorInfo
+            WeatherInfo insideWeatherInfo = new WeatherInfo
             {
-                Temperature = GetTemperature(),
-                Humidity = GetHumidity(),
-                Pressure = GetPressure()
+                temperature = GetTemperature(),
+                humidity = GetHumidity(),
+                pressure = GetPressure(),
             };
-            WeatherInfo info = new WeatherInfo(this, sensorInfo);
-            return info;
+            return insideWeatherInfo;
         }
     }
 }

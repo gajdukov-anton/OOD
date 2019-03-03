@@ -3,8 +3,12 @@ using WeatherStation.Observer;
 
 namespace WeatherStation.WeatherData
 {
-    public class Display : Observer<WeatherInfo>
+    public class Display : Observer.IObserver<WeatherInfo>
     {
+        private Observer.IObservable<WeatherInfo> _lastWeatherStation;
+        private Observer.IObservable<WeatherInfo> _weatherStationOutside;
+        private Observer.IObservable<WeatherInfo> _weatherStationInside;
+
         public Display( Observable<WeatherInfo> weatherStationInside, Observable<WeatherInfo> weatherStationOutside, int priority )
         {
             _weatherStationInside = weatherStationInside;
@@ -13,17 +17,17 @@ namespace WeatherStation.WeatherData
             _weatherStationOutside.RegisterObserver( this, priority );
         }
 
-        public override void Update( WeatherInfo data )
+        public void Update( WeatherInfo data, Observer.IObservable<WeatherInfo> observable )
         {
-            Console.WriteLine( $"Current Temp {data.GetSensorInfo().Temperature}" );
-            Console.WriteLine( $"Current Hum {data.GetSensorInfo().Humidity}" );
-            Console.WriteLine( $"Current Pressure {data.GetSensorInfo().Pressure}" );
-            if (data.GetSender() == _weatherStationOutside)
+            Console.WriteLine( $"Current Temp {data.temperature}" );
+            Console.WriteLine( $"Current Hum {data.humidity}" );
+            Console.WriteLine( $"Current Pressure {data.pressure}" );
+            if (observable == _weatherStationOutside)
             {
-                Console.WriteLine( $"Current windSpeed {((OutsideSensorInfo) data.GetSensorInfo() ).WindSpeed}" );
-                Console.WriteLine( $"Current windDirection {( ( OutsideSensorInfo ) data.GetSensorInfo() ).WindDirection}" );
+                Console.WriteLine( $"Current windSpeed {(( WeatherInfoOutside ) data ).windInfo.windSpeed}" );
+                Console.WriteLine( $"Current windDirection {( ( WeatherInfoOutside ) data ).windInfo.windDirection}" );
             }
-            Console.WriteLine( $"Location {data.GetSender().GetLocation().ToString()}" );
+            Console.WriteLine( $"Location {observable.Location.ToString()}" );
             Console.WriteLine( "----------------" );
         }
     }

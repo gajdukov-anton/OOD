@@ -1,11 +1,15 @@
 ﻿namespace WeatherStation.WeatherData
 {
-    public struct WeatherInfo
+    public class WindInfo
+    {
+        public double windSpeed;
+        public double windDirection;
+    }
+    public class WeatherInfo
     {
         public double temperature;
         public double humidity;
         public double pressure;
-        public double windSpeed;
-        public double windDirection;
+        public WindInfo windInfo = new WindInfo();
     };
 }

@@ -17,11 +17,12 @@ namespace WeatherStation.Observer
     public abstract class Observable<T> : IObservable<T>
     {
         private List<ObserverWithPriority<T>> _observerWithPriorityList = new List<ObserverWithPriority<T>>();
-        private LocationKind _location;
+        public LocationKind Location { get; private set; }
+
 
         public Observable( LocationKind location )
         {
-            _location = location;
+            Location = location;
         }
 
         public void RegisterObserver( IObserver<T> observer, int priority )
@@ -51,9 +52,10 @@ namespace WeatherStation.Observer
         public void NotifyObservers()
         {
             T data = GetChangedData();
-            for ( int i = 0; i < _observerWithPriorityList.Count; i++ )
+            var observers = new List<ObserverWithPriority<T>>( _observerWithPriorityList );
+            foreach ( var item in observers )
             {
-                _observerWithPriorityList [ i ].observer.Update( data );
+                item.observer.Update( data, this );
             }
         }
 
@@ -66,11 +68,6 @@ namespace WeatherStation.Observer
                     _observerWithPriorityList.RemoveAt( i );
                 }
             }
-        }
-
-        public LocationKind GetLocation()
-        {
-            return _location;
         }
 
         protected abstract T GetChangedData();
