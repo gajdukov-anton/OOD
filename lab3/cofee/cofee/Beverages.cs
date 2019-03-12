@@ -1,5 +1,5 @@
 ﻿
-namespace cofee
+namespace Coffee
 {
     public enum CofeePortionSize
     {
@@ -39,11 +39,11 @@ namespace cofee
         public abstract double GetCost();
     }
 
-    public class Cofee : Beverage
+    public class Coffee : Beverage
     {
         protected CofeePortionSize _portionSize;
 
-        public Cofee(CofeePortionSize portionSize = CofeePortionSize.Standart, string description = "Cofee" )
+        public Coffee(CofeePortionSize portionSize = CofeePortionSize.Standart, string description = "Cofee" )
             : base( portionSize.ToString() + description )
         {
             _portionSize = portionSize;
@@ -53,11 +53,9 @@ namespace cofee
         {
             return 60;
         }
-
-
     }
 
-    public class Capucino : Cofee
+    public class Capucino : Coffee
     {
         public Capucino( CofeePortionSize portionSize = CofeePortionSize.Standart )
             :base( portionSize, " Capucino" )
@@ -70,7 +68,7 @@ namespace cofee
         }
     }
 
-    public class Latte : Cofee
+    public class Latte : Coffee
     {
         public Latte( CofeePortionSize portionSize = CofeePortionSize.Standart )
             : base( portionSize, " Late" )
@@ -121,5 +119,4 @@ namespace cofee
             }
         }
     }
-
 }

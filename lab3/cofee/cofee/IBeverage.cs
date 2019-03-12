@@ -1,4 +1,4 @@
-﻿namespace cofee
+﻿namespace Coffee
 {
     public interface IBeverage
     {
