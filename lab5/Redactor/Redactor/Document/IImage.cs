@@ -1,12 +1,13 @@
-﻿using System.IO;
+﻿using Redactor.Document.Command;
+using System;
 
 namespace Redactor.Document
 {
-    public interface IImage
+    public interface IImage : IDisposable
     {
-        Path GetPath();
+        string GetPath();
         int GetWidth();
         int GetHeight();
-        void Resize( int width, int height );
+        void Resize( int width, int height, IMainHistoryCommands history );
     }
 }

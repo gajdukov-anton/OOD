@@ -1,21 +1,23 @@
-﻿namespace Redactor.Document
+﻿using Redactor.Document.Command;
+
+namespace Redactor.Document
 {
     class Paragraph : IParagraph
     {
-        private string _text;
+        private StringRepresentation _stringRepresentation = new StringRepresentation();
 
         public Paragraph( string text )
         {
-            _text = text;
+            _stringRepresentation.Value = text;
         }
         public string GetText()
         {
-            return _text;
+            return _stringRepresentation.Value;
         }
 
-        public void SetText( string text )
+        public void SetText( string text, IMainHistoryCommands history )
         {
-            _text = text;
+            history.AddAndExecuteCommand( new ReplaceTextCommand( _stringRepresentation, text ) );
         }
     }
 }

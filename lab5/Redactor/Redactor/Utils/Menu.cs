@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Redactor.Document.Command;
 
 namespace Redactor.Utils
 {
@@ -55,6 +56,11 @@ namespace Redactor.Utils
         public void ExecuteCommand( string commandStrData )
         {
             string [] commandArrData = commandStrData.Split( new char [] { ' ' }, StringSplitOptions.RemoveEmptyEntries );
+            if (commandArrData.Count() == 0)
+            {
+                _textWriter.WriteLine( Constants.UNRKNOW_COMMAND );
+                return;
+            }
             var item = from it in _items
                        where it.Shortcut.ToLower() == commandArrData [ 0 ].ToLower()
                        select it;

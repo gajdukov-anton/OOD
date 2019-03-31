@@ -28,6 +28,8 @@ namespace Redactor
             _menu.AddItem( Constants.REDO_COMMAND_NAME, Constants.REDO_COMMAND_DESCRIPTION, new AddRedoCommand( _document ) );
             _menu.AddItem( Constants.DELETE_ITEM_COMMAND_NAME, Constants.DELETE_ITEM_COMMAND_DESCRIPTION, new AddDeleteItemCommand( _document ) );
             _menu.AddItem( Constants.SAVE_COMMAND_NAME, Constants.SAVE_COMMAND_DESCRIPTION, new SaveCommand( _document ) );
+            _menu.AddItem( Constants.INSERT_IMAGE_COMMAND_NAME, Constants.INSERT_IMAGE_COMMAND_DESCRIPTION, new AddImageCommand( _document ) );
+            _menu.AddItem( Constants.RESIZE_IMAGE_COMMAND_NAME, Constants.RESIZE_IMAGE_COMMAND_DESCRIPTION, new AddResizeImage( _document ) );
         }
 
         public void StartRedactor()

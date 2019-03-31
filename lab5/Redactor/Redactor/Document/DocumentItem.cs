@@ -2,7 +2,7 @@
 {
     public class DocumentItem
     {
-        public  IImage Image { get; }
+        public IImage Image { get; }
         public IParagraph Paragraph { get; }
 
         public DocumentItem(IImage image)

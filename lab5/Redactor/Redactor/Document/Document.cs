@@ -1,4 +1,4 @@
-﻿using Redactor.Command;
+﻿using Redactor.Document.Command;
 using Redactor.Utils;
 using System;
 using System.Collections.Generic;
@@ -9,14 +9,14 @@ namespace Redactor.Document
     public class Document : IDocument
     {
         private List<DocumentItem> _items;
-        private Title _title;
+        private StringRepresentation _title;
         private IHistory _history;
 
         public Document()
         {
             _items = new List<DocumentItem>();
             _history = new History();
-            _title = new Title();
+            _title = new StringRepresentation();
         }
 
         public bool CanRedo()
@@ -34,6 +34,11 @@ namespace Redactor.Document
             _history.AddAndExecuteCommand( new DeleteItemCommand( _items, index ) );
         }
 
+        public IHistory GetHistory()
+        {
+            return _history;
+        }
+
         public DocumentItem GetItem( int index )
         {
             return index >= _items.Count || index < 0 ? throw new IndexOutOfRangeException() : _items [ index ];
@@ -44,15 +49,16 @@ namespace Redactor.Document
             return _items.Count;
         }
 
-        public Title GetTitle()
+        public StringRepresentation GetTitle()
         {
             return _title;
         }
 
         public IImage InsertImage( string path, int width, int height, int? position = null )
         {
-            //throw new System.NotImplementedException();
-            return null;
+            IImage image = new CustomImage( height, width, path );
+            _history.AddAndExecuteCommand( new InsertImageCommand( _items, image, position ) );
+            return image;
         }
 
         public IParagraph InsertParagraph( string text, int? position = null )
@@ -67,18 +73,13 @@ namespace Redactor.Document
             _history.Redo();
         }
 
-        public void ReplaceText( int index, string text )
-        {
-            _history.AddAndExecuteCommand( new ReplaceTextCommand( _items [ index ], text ) );
-        }
-
         public void Save( string path )
         {
             StreamWriter streamWriter = new StreamWriter( path );
             DocumentItemSaver saver = new DocumentItemSaver();
             streamWriter.WriteLine( "<html>" );
             streamWriter.WriteLine( "<head>" );
-            streamWriter.WriteLine( $"  <title>{GetTitle()}</title>" );
+            streamWriter.WriteLine( $"  <title>{GetTitle().Value}</title>" );
             streamWriter.WriteLine( "</head>" );
             streamWriter.WriteLine( "<body>" );
             saver.Save( _items, streamWriter );

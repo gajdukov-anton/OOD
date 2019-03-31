@@ -33,7 +33,8 @@ namespace Redactor.WorkWithUsersCommands
                 return;
             }
             string text = GetTextFormStr( commandData, new string [] { commandArrData [ 0 ], commandArrData [ 1 ] } );
-            _document.ReplaceText( ( int ) index, text );
+            var item = _document.GetItem( ( int ) index );
+            item.Paragraph.SetText( text, _document.GetHistory() );
         }
 
         private string GetTextFormStr( string str, string [] commandWords )

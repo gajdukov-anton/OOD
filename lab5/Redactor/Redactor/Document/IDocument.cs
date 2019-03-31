@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Redactor.Document.Command;
+using System.IO;
 
 namespace Redactor.Document
 {
@@ -9,13 +10,13 @@ namespace Redactor.Document
         int GetItemsCount();
         DocumentItem GetItem( int index );
         void DeleteItem( int index );
-        Title GetTitle();
+        StringRepresentation GetTitle();
         void SetTitle( string title );
         bool CanUndo();
         void Undo();
         bool CanRedo();
         void Redo();
         void Save( string path );
-        void ReplaceText( int index, string text );
+        IHistory GetHistory();
     }
 }

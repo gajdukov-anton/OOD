@@ -35,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,24 +46,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
-    <Compile Include="Command\DeleteItemCommand.cs" />
-    <Compile Include="Command\ReplaceTextCommand.cs" />
-    <Compile Include="Command\SetTitleCommand.cs" />
+    <Compile Include="Document\Command\DeleteItemCommand.cs" />
+    <Compile Include="Document\Command\IMainHistoryCommands.cs" />
+    <Compile Include="Document\Command\InsertImageCommand.cs" />
+    <Compile Include="Document\Command\ReplaceTextCommand.cs" />
+    <Compile Include="Document\Command\ResizeImageCommand.cs" />
+    <Compile Include="Document\Command\SetTitleCommand.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Document\Title.cs" />
-    <Compile Include="Utils\DocumentItemSaver.cs" />
+    <Compile Include="Document\CustomImage.cs" />
+    <Compile Include="Document\ImageResolution.cs" />
+    <Compile Include="Document\IResizable.cs" />
+    <Compile Include="Document\StringRepresentation.cs" />
+    <Compile Include="Document\DocumentItemSaver.cs" />
+    <Compile Include="Utils\ImageFunctions.cs" />
+    <Compile Include="Utils\StringFunctions.cs" />
     <Compile Include="WorkWithUsersCommands\AddDeleteItemCommand.cs" />
+    <Compile Include="WorkWithUsersCommands\AddImageCommand.cs" />
     <Compile Include="WorkWithUsersCommands\AddParagraphCommand.cs" />
-    <Compile Include="Command\ICommand.cs" />
+    <Compile Include="Document\Command\ICommand.cs" />
     <Compile Include="WorkWithUsersCommands\AddRedoCommand.cs" />
     <Compile Include="WorkWithUsersCommands\AddReplaceTextCommand.cs" />
+    <Compile Include="WorkWithUsersCommands\AddResizeImage.cs" />
     <Compile Include="WorkWithUsersCommands\AddTitleCommand.cs" />
     <Compile Include="WorkWithUsersCommands\AddUndoCommand.cs" />
     <Compile Include="WorkWithUsersCommands\ExitCommand.cs" />
     <Compile Include="WorkWithUsersCommands\GetListCommand.cs" />
     <Compile Include="WorkWithUsersCommands\SaveCommand.cs" />
     <Compile Include="WorkWithUsersCommands\WorkWithUsersCommand.cs" />
-    <Compile Include="Command\InsertParagraphCommand.cs" />
+    <Compile Include="Document\Command\InsertParagraphCommand.cs" />
     <Compile Include="Document\Document.cs" />
     <Compile Include="Document\DocumentItem.cs" />
     <Compile Include="Document\IDocument.cs" />
@@ -69,11 +81,11 @@
     <Compile Include="Document\IParagraph.cs" />
     <Compile Include="Document\Paragraph.cs" />
     <Compile Include="WorkWithUsersCommands\ShowInstructionCommand.cs" />
-    <Compile Include="Utils\History.cs" />
-    <Compile Include="Utils\IHistory.cs" />
+    <Compile Include="Document\Command\History.cs" />
+    <Compile Include="Document\Command\IHistory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\Item.cs" />
+    <Compile Include="Document\Command\Item.cs" />
     <Compile Include="Utils\Menu.cs" />
   </ItemGroup>
   <ItemGroup>
