@@ -7,26 +7,25 @@ namespace Adapter.Application
 {
     public class MGREndererClassAdapter : ModernGraphicsRenderer, ICanvas
     {
-        public ModernGraphicsLib.Point LatsPoint { get; private set; }
+        public ModernGraphicsLib.Point _lastPoint = new ModernGraphicsLib.Point( 0, 0 );
         private RGBAColor _color = new RGBAColor();
 
         public MGREndererClassAdapter( TextWriter streamWriter )
             : base( streamWriter )
         {
-            LatsPoint = new ModernGraphicsLib.Point();
         }
 
         public void LineTo( int x, int y )
         {
-            DrawLine( LatsPoint, new ModernGraphicsLib.Point( x, y ), _color );
-            LatsPoint.X = x;
-            LatsPoint.Y = y;
+            DrawLine( _lastPoint, new ModernGraphicsLib.Point( x, y ), _color );
+            _lastPoint.X = x;
+            _lastPoint.Y = y;
         }
 
         public void MoveTo( int x, int y )
         {
-            LatsPoint.X = x;
-            LatsPoint.Y = y;
+            _lastPoint.X = x;
+            _lastPoint.Y = y;
         }
 
         public void SetColor( int rgbColor )

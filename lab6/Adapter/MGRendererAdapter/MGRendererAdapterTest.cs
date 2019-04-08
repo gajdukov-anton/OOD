@@ -2,6 +2,7 @@
 using Adapter.ModernGraphicsLib;
 using Adapter.Application;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace AdapterUnitTest
 {
@@ -22,6 +23,15 @@ namespace AdapterUnitTest
             resultStringWriter.WriteLine( "<draw>" );
             resultStringWriter.WriteLine( "</draw>" );
             Assert.AreEqual( resultStringWriter.ToString(), stringWriter.ToString() );
+        }
+
+        [TestMethod]
+        public void LineToWithoutBeginDrawTest()
+        {
+            StringWriter stringWriter = new StringWriter();
+            var renderer = new ModernGraphicsRenderer( stringWriter );
+            var adapter = new MGRendererAdapter( renderer );
+            Assert.ThrowsException<Exception>( () => adapter.LineTo(0, 0) );
         }
 
         [TestMethod]

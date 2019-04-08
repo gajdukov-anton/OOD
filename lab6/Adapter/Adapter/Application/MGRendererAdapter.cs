@@ -9,7 +9,7 @@ namespace Adapter.Application
     {
         private RGBAColor _color = new RGBAColor();
         private ModernGraphicsRenderer _renderer;
-        private ModernGraphicsLib.Point _latsPoint = new ModernGraphicsLib.Point( 0, 0 );
+        private ModernGraphicsLib.Point _lastPoint = new ModernGraphicsLib.Point( 0, 0 );
 
         public MGRendererAdapter( ModernGraphicsRenderer renderer )
         {
@@ -28,15 +28,15 @@ namespace Adapter.Application
 
         public void LineTo( int x, int y )
         {
-            _renderer.DrawLine( _latsPoint, new ModernGraphicsLib.Point( x, y ), _color );
-            _latsPoint.X = x;
-            _latsPoint.Y = y;
+            _renderer.DrawLine( _lastPoint, new ModernGraphicsLib.Point( x, y ), _color );
+            _lastPoint.X = x;
+            _lastPoint.Y = y;
         }
 
         public void MoveTo( int x, int y )
         {
-            _latsPoint.X = x;
-            _latsPoint.Y = y;
+            _lastPoint.X = x;
+            _lastPoint.Y = y;
         }
 
         public void SetColor( int rgbColor )

@@ -1,44 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Adapter.Application.App" Collapsed="true">
-    <Position X="3" Y="0.75" Width="1.5" />
+    <Position X="21.25" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
       <FileName>Application\App.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Adapter.Application.MGRendererAdapter" BaseTypeListCollapsed="true">
-    <Position X="6.5" Y="3.5" Width="1.5" />
+    <Position X="24.75" Y="14.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAAAEAAAACAIAAAAAAAAAAAAEAAIAAAAAAgAAAAAAAA=</HashCode>
+      <HashCode>gAAAEAAEACAIAAAAAAAAAAAAEAAIAAAAAAgAAAAAAAA=</HashCode>
       <FileName>Application\MGRendererAdapter.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.408" />
   </Class>
   <Class Name="Adapter.Application.MGREndererClassAdapter">
-    <Position X="0.5" Y="1.75" Width="1.5" />
+    <Position X="19.25" Y="15.5" Width="1.5" />
     <InheritanceLine Type="Adapter.ModernGraphicsLib.ModernGraphicsRenderer" ManuallyRouted="true" FixedFromPoint="true">
       <Path>
-        <Point X="1.25" Y="1.062" />
-        <Point X="1.25" Y="1.75" />
+        <Point X="20" Y="14.768" />
+        <Point X="20" Y="15.5" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAIAAAAAAAAAAAIAAAIAAAAAAgAAAAAAAA=</HashCode>
+      <HashCode>AAAAEAAEAAAIAAAAAAAAAAAAAAAIAAAAAAgAAAAAAAA=</HashCode>
       <FileName>Application\MGREndererClassAdapter.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.1" />
   </Class>
-  <Class Name="Adapter.GraphicsLib.Canvas" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="3" Y="3.5" Width="1.5" />
+  <Class Name="Adapter.GraphicsLib.Canvas" BaseTypeListCollapsed="true">
+    <Position X="21.25" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAIAAAAAAgAAAAAAAA=</HashCode>
       <FileName>GraphicsLib\Canvas.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.233" />
   </Class>
-  <Class Name="Adapter.ModernGraphicsLib.ModernGraphicsRenderer" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+  <Class Name="Adapter.ModernGraphicsLib.ModernGraphicsRenderer">
+    <Position X="19.25" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gQAAAAAAACAAAAAAAAABAAAAAAAAAAAAAEBAAAAAAAA=</HashCode>
       <FileName>ModernGraphicsLib\ModernGraphicsRenderer.cs</FileName>
@@ -46,50 +46,50 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Adapter.ModernGraphicsLib.Point" Collapsed="true">
-    <Position X="3" Y="1.5" Width="1.5" />
+    <Position X="21.25" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
       <FileName>ModernGraphicsLib\Point.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Adapter.ModernGraphicsLib.RGBAColor" Collapsed="true">
-    <Position X="3" Y="2.5" Width="1.5" />
+    <Position X="28.25" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAEAAQA=</HashCode>
       <FileName>ModernGraphicsLib\RGBAColor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Adapter.Program" Collapsed="true">
-    <Position X="6.5" Y="1.5" Width="1.5" />
+    <Position X="24.75" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Adapter.ShapeDrawingLib.CanvasPainter" Collapsed="true">
-    <Position X="6.5" Y="0.5" Width="1.5" />
+    <Position X="24.75" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ShapeDrawingLib\CanvasPainter.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Adapter.ShapeDrawingLib.Point" Collapsed="true">
-    <Position X="4.75" Y="1.5" Width="1.5" />
+    <Position X="23" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
       <FileName>ShapeDrawingLib\Point.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Adapter.ShapeDrawingLib.Rectangle" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="10.25" Y="2.25" Width="1.5" />
+  <Class Name="Adapter.ShapeDrawingLib.Rectangle" BaseTypeListCollapsed="true">
+    <Position X="26.5" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACIAgAAAAAAAAAAABAAAAAAAAAAAAAQAAA=</HashCode>
       <FileName>ShapeDrawingLib\Rectangle.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.183" />
   </Class>
-  <Class Name="Adapter.ShapeDrawingLib.Triangle" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="4.75" Y="4.5" Width="1.5" />
+  <Class Name="Adapter.ShapeDrawingLib.Triangle" BaseTypeListCollapsed="true">
+    <Position X="23" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIADAAAIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ShapeDrawingLib\Triangle.cs</FileName>
@@ -97,21 +97,21 @@
     <Lollipop Position="0.167" />
   </Class>
   <Interface Name="Adapter.GraphicsLib.ICanvas" Collapsed="true">
-    <Position X="3" Y="4.75" Width="1.5" />
+    <Position X="26.5" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAIAAAAAAgAAAAAAAA=</HashCode>
       <FileName>GraphicsLib\ICanvas.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Adapter.ShapeDrawingLib.ICanvasDrawable" Collapsed="true">
-    <Position X="5" Y="2.5" Width="1.5" />
+  <Interface Name="Adapter.ShapeDrawingLib.ICanvasDrawable">
+    <Position X="23" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ShapeDrawingLib\ICanvasDrawable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="System.IDisposable" Collapsed="true">
-    <Position X="8.25" Y="1.5" Width="1.5" />
+    <Position X="26.5" Y="12.25" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Font Name="Segoe UI" Size="9" />

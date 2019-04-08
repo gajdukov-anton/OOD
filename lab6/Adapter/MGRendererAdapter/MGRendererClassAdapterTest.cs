@@ -9,17 +9,38 @@ namespace AdapterUnitTest
     public class MGRendererClassAdapterTest
     {
         [TestMethod]
-        public void BeginEndDrowTest()
+        public void BeginDrawTest()
         {
             StringWriter stringWriter = new StringWriter();
             StringWriter resultStringWriter = new StringWriter();
-            using ( var adapter = new MGREndererClassAdapter( stringWriter ) )
+            using ( var adapterOne = new MGREndererClassAdapter( stringWriter ) )
             {
-                adapter.BeginDraw();
+                adapterOne.BeginDraw();
             }
             resultStringWriter.WriteLine( "<draw>" );
             resultStringWriter.WriteLine( "</draw>" );
             Assert.AreEqual( resultStringWriter.ToString(), stringWriter.ToString() );
+            var adapterTwo = new MGREndererClassAdapter( stringWriter );
+            adapterTwo.BeginDraw();
+            Assert.ThrowsException<Exception>( () => adapterTwo.BeginDraw() );
+        }
+
+        [TestMethod]
+        public void EndDrawTest()
+        {
+            StringWriter stringWriter = new StringWriter();
+            StringWriter resultStringWriter = new StringWriter();
+            using ( var adapterOne = new MGREndererClassAdapter( stringWriter ) )
+            {
+                adapterOne.BeginDraw();
+            }
+            resultStringWriter.WriteLine( "<draw>" );
+            resultStringWriter.WriteLine( "</draw>" );
+            Assert.AreEqual( resultStringWriter.ToString(), stringWriter.ToString() );
+            var adapterTwo = new MGREndererClassAdapter( stringWriter );
+            adapterTwo.BeginDraw();
+            adapterTwo.EndDraw();
+            Assert.ThrowsException<Exception>( () => adapterTwo.EndDraw() );
         }
 
         [TestMethod]
@@ -31,12 +52,19 @@ namespace AdapterUnitTest
             {
                 adapter.BeginDraw();
                 adapter.MoveTo( 12, 19 );
-                Assert.AreEqual( 12, adapter.LatsPoint.X );
-                Assert.AreEqual( 19, adapter.LatsPoint.Y );
             }
             resultStringWriter.WriteLine( "<draw>" );
             resultStringWriter.WriteLine( "</draw>" );
             Assert.AreEqual( resultStringWriter.ToString(), stringWriter.ToString() );
+        }
+
+        [TestMethod]
+        public void LineToWithoutBeginDrawTest()
+        {
+            StringWriter stringWriter = new StringWriter();
+            var renderer = new MGREndererClassAdapter( stringWriter );
+            var adapter = new MGRendererAdapter( renderer );
+            Assert.ThrowsException<Exception>( () => adapter.LineTo( 0 , 0) );
         }
 
         [TestMethod]
