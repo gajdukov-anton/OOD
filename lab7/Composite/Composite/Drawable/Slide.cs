@@ -52,13 +52,13 @@ namespace Composite.Drawable
 
         private void DrawBackground( ICanvas canvas )
         {
-            canvas.BeginFill( _backgroundColor.ToArgb() );
+           /* canvas.BeginFill( _backgroundColor.ToArgb() );
             canvas.SetLineColor( _backgroundColor.ToArgb() );
             canvas.LineTo( 0, _height );
             canvas.LineTo( _width, _height );
             canvas.LineTo( _width, 0 );
             canvas.LineTo( 0, 0 );
-            canvas.EndFill();
+            canvas.EndFill();*/
         }
 
         private void DrawShapes( ICanvas canvas )

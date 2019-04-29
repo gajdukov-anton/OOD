@@ -6,25 +6,17 @@ using System.Drawing;
 
 namespace Composite.Groups
 {
-    public class GroupShape : IGroupShape, INode
+    public class GroupShape : IGroupShape
     {
         private List<IShape> _shapes;
-        private IStyle _outLineStyle;
-        private IStyle _fillStyle;
-        private INode _parentNode;
+        private OutLineGroupStyle _outLineStyle;
+        private GroupStyle _fillStyle;
 
         public GroupShape()
         {
             _shapes = new List<IShape>();
-            _outLineStyle = new Style();
-            _fillStyle = new Style();
-        }
-
-        public GroupShape( IStyle outlineStyle, IStyle fillStyle )
-        {
-            _outLineStyle = outlineStyle;
-            _fillStyle = fillStyle;
-            _shapes = new List<IShape>();
+            _outLineStyle = new OutLineGroupStyle( CreateOutLineStyle() );
+            _fillStyle = new GroupStyle( CreateBaseStyle() );
         }
 
         public void Draw( ICanvas canvas )
@@ -35,19 +27,9 @@ namespace Composite.Groups
             }
         }
 
-        public void RegisterNode( INode node )
-        {
-            _parentNode = node;
-            _parentNode.UpdateFillStyle( _fillStyle );
-            _parentNode.UpdateOutLineStyle( _outLineStyle );
-        }
-
         public void InsertShape( IShape shape, int index )
         {
             _shapes.Insert( index, shape );
-            shape.RegisterNode( this );
-            UpdateParentNodeFillStyle( shape.GetFillStyle() );
-            UpdateParentNodeOutLineStyle( shape.GetOutlineStyle() );
         }
 
         public void RemoveShapeAtIndex( int index )
@@ -55,8 +37,6 @@ namespace Composite.Groups
             if ( index >= 0 && index < _shapes.Count )
             {
                 _shapes.RemoveAt( index );
-                UpdateParentNodeFillStyle( null );
-                UpdateParentNodeOutLineStyle( null );
                 return;
             }
             throw new IndexOutOfRangeException();
@@ -79,38 +59,12 @@ namespace Composite.Groups
             return GetShapesCount() > 0 ? CalculateShapesFrame() : null;
         }
 
-        public void SetFillStyle( IStyle style )
-        {
-            if ( _shapes.Count > 0 )
-            {
-                foreach ( var shape in _shapes )
-                {
-                    shape.SetFillStyle( style );
-                }
-                FillStyle( _fillStyle, style.GetColor(), style.IsEnable() );
-                UpdateParentNodeFillStyle( style );
-            }
-        }
-
         public IStyle GetFillStyle()
         {
             return _fillStyle;
         }
 
-        public void SetOutlineStyle( IStyle style )
-        {
-            if ( _shapes.Count > 0 )
-            {
-                foreach ( var shape in _shapes )
-                {
-                    shape.SetOutlineStyle( style );
-                }
-                FillStyle( _outLineStyle, style.GetColor(), style.IsEnable() );
-                UpdateParentNodeOutLineStyle( style );
-            }
-        }
-
-        public IStyle GetOutlineStyle()
+        public IOutLineStyle GetOutlineStyle()
         {
             return _outLineStyle;
         }
@@ -127,40 +81,6 @@ namespace Composite.Groups
         public int GetShapesCount()
         {
             return _shapes.Count;
-        }
-
-        public void UpdateOutLineStyle( IStyle style )
-        {
-            if ( _shapes.Count > 0 )
-            {
-                FillStyle( _outLineStyle, _shapes [ 0 ].GetOutlineStyle().GetColor(), _shapes [ 0 ].GetOutlineStyle().IsEnable() );
-                foreach ( var shape in _shapes )
-                {
-                    if ( !shape.GetOutlineStyle().Equals( _shapes[0].GetOutlineStyle() ) )
-                    {
-                        FillStyle( _outLineStyle, Color.Empty, false );
-                        break;
-                    }
-                }
-            }
-            UpdateParentNodeOutLineStyle( style );
-        }
-
-        public void UpdateFillStyle( IStyle style )
-        {
-            if ( _shapes.Count > 0 )
-            {
-                FillStyle( _fillStyle, _shapes [ 0 ].GetFillStyle().GetColor(), _shapes [ 0 ].GetFillStyle().IsEnable() );
-                foreach ( var shape in _shapes )
-                {
-                    if ( !shape.GetFillStyle().Equals( _shapes[0].GetFillStyle() ) )
-                    {
-                        FillStyle( _fillStyle, Color.Empty, false );
-                        break;
-                    }
-                }
-            }
-            UpdateParentNodeFillStyle( style );
         }
 
         private Rect<double> CalculateShapesFrame()
@@ -189,18 +109,18 @@ namespace Composite.Groups
             if ( GetShapesCount() > 0 )
             {
                 var prevFrame = GetFrame();
-                double varianceLeft = frame.Left / prevFrame.Left;
-                double varianceTop = frame.Top / prevFrame.Top;
-                double varianceWidth = frame.Width / prevFrame.Width;
-                double varianceHeight = frame.Height / prevFrame.Height;
+                double varianceX = frame.Width / prevFrame.Width;
+                double varianceY = frame.Height / prevFrame.Height;
 
                 foreach ( var shape in _shapes )
                 {
+                    var incrementX = shape.GetFrame().Left - prevFrame.Left;
+                    var incrementY = prevFrame.Top - shape.GetFrame().Top;
                     var newFrame = new Rect<double>(
-                        shape.GetFrame().Left * varianceLeft,
-                        shape.GetFrame().Width * varianceWidth,
-                        shape.GetFrame().Top * varianceTop,
-                        shape.GetFrame().Height * varianceHeight );
+                        frame.Left + ( incrementX * varianceX ),
+                        shape.GetFrame().Width * varianceX,
+                        frame.Top - ( incrementY * varianceY ),
+                        shape.GetFrame().Height * varianceY );
                     shape.SetFrame( newFrame );
                 }
             }
@@ -208,29 +128,23 @@ namespace Composite.Groups
 
         private bool ValidateFrame( Rect<double> frame )
         {
-            return frame.Height > 0 && frame.Left > 0 && frame.Top > 0 && frame.Width > 0;
+            return frame.Height > 0 && frame.Width > 0;
         }
 
-        private void UpdateParentNodeFillStyle( IStyle style )
+        private IEnumerable<IOutLineStyle> CreateOutLineStyle()
         {
-            if ( _parentNode != null )
+            foreach ( var shape in _shapes )
             {
-                _parentNode.UpdateFillStyle( style );
+                yield return shape.GetOutlineStyle();
             }
         }
 
-        private void UpdateParentNodeOutLineStyle( IStyle style )
+        private IEnumerable<IStyle> CreateBaseStyle()
         {
-            if ( _parentNode != null )
+            foreach ( var shape in _shapes )
             {
-                _parentNode.UpdateOutLineStyle( style );
+                yield return shape.GetFillStyle();
             }
-        }
-
-        private void FillStyle( IStyle style, Color color, bool enable )
-        {
-            style.SetColor( color );
-            style.Enable( enable );
         }
     }
 }

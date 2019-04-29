@@ -12,42 +12,48 @@ namespace Composite
     {
         static void Main( string [] args )
         {
-            ICanvas canvas = new Canvas.Canvas( Console.Out );
-            canvas.MoveTo( 10, 10 );
-            canvas.LineTo( 250, 250 );
-            
-           /* Rect<double> elipseFrame = new Rect<double>( 1, 10, 10, 10 );
-            Elipse elipse = new Elipse( elipseFrame, new Style( Color.FromArgb( 0xff0000 ), true ), new Style( Color.FromArgb( 0xffff00 ), true ) );
-            Rect<double> rectangleFrame = new Rect<double>( 1, 100, 100, 100 );
-            Rectangle rectangle = new Rectangle( rectangleFrame, new Style( Color.FromArgb( 0xff0000 ), true ), new Style( Color.FromArgb( 0xffff00 ), true ) );
-            GroupShape group = new GroupShape( new Style( Color.FromArgb( 0xffffff ), true ), new Style( Color.FromArgb( 0xffffff ), true ) );
-            group.InsertShape( elipse, 0 );
-            group.InsertShape( rectangle, 0 );*/
+            /*   var canvas = new Canvas.Canvas( Console.Out );
+               var fillStyle = new Style( Color.FromArgb( 0xff0000 ), true );
+               var outLineStyle = new OutLineStyle( Color.FromArgb( 0xffff00 ), true, 2 );
+               var unableFillStyle = new Style( Color.FromArgb( 0xff0000 ), false );
 
-          /*  var fillStyleOne = new Style( Color.FromArgb( 0xff0000 ), true );
-            var fillStyleTwo = new Style( Color.FromArgb( 0xffff00 ), true );
-            var outLineStyleOne = new Style( Color.FromArgb( 0xffff00 ), true );
-            var outLineStyleTwo = new Style( Color.FromArgb( 0x00ff00 ), true );
-            var emptyStyle = new Style();
+               var elipseFrame = new Rect<double>( 5, 7, 10, 8 );
+               var elipse = new Elipse( elipseFrame, fillStyle, outLineStyle );
+               var rectangleFrame = new Rect<double>( 10, 12, 12, 11 );
+               var rectangle = new Rectangle( rectangleFrame, fillStyle, outLineStyle );
+               var triangleFrame = new Rect<double>( 5, 17, 12, 16 );
+               var triangle = new Triangle( triangleFrame, unableFillStyle, outLineStyle );
 
-            var elipseFrame = new Rect<double>( 1, 1000, 10, 500 );
-            var elipse = new Elipse( elipseFrame, fillStyleOne, outLineStyleOne );
-            var rectangleFrame = new Rect<double>( 1, 100, 100, 100 );
-            var rectangle = new Composite.Drawable.Rectangle( rectangleFrame, fillStyleOne, outLineStyleOne );
-            var triangleFrame = new Rect<double>( 10, 10, 10, 10 );
-            var triangle = new Triangle( triangleFrame, fillStyleTwo, outLineStyleTwo );
+               var group = new GroupShape();
+               var triangleGroup = new GroupShape();
 
-            var group = new GroupShape();
-            var triangleGroup = new GroupShape();
-            var currentFillStyle = group.GetFillStyle();
-            var currentOutLineStyle = group.GetOutlineStyle();
+               group.InsertShape( elipse, 0 );
+               group.InsertShape( rectangle, 0 );
+               triangleGroup.InsertShape( triangle, 0 );
+               group.InsertShape( triangleGroup, 0 );
 
-            triangleGroup.InsertShape( triangle, 0 );
-            group.InsertShape( triangleGroup, 0 );
-            group.InsertShape( elipse, 0 );
+               var slide = new Slide( 1000, 1000 );
+               slide.GetShapes().InsertShape( group, 0 );
+               slide.Draw( canvas );*/
+            var canvas = new Canvas.Canvas( Console.Out, 1000, 1000 );
 
-            Slide slide = new Slide( 1000, 1000 );
-            slide.GetShapes().InsertShape( group, 0 );*/
+            var fillStyle = new Style( Color.Red, false );
+            var outLineStyle = new OutLineStyle( Color.Green, true, 5 );
+
+            var triangleFrame = new Rect<double>( 80, 60, 50, 90 );
+            var triangle = new Triangle( triangleFrame, fillStyle, outLineStyle );
+
+            var rectangleFrame = new Rect<double>( 100, 50, 150, 50 );
+            var rectangle = new Rectangle( rectangleFrame, fillStyle, outLineStyle );
+
+            var ellipseFrame = new Rect<double>( 150, 50, 250, 50 );
+            var ellipse = new Elipse( ellipseFrame, fillStyle, outLineStyle );
+
+            rectangle.Draw( canvas );
+            triangle.Draw( canvas );
+            ellipse.Draw( canvas );
+
+            canvas.Save( "E:\\учёба\\test.png" );
         }
 
         private static void PrintFrame( Rect<double> frame )
