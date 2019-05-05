@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace GumballMachine.GumbalMachineWithState
+namespace GumballMachine.MultiGumballMachine
 {
     public class NoQuarterState : IState
     {
@@ -18,6 +18,7 @@ namespace GumballMachine.GumbalMachineWithState
         public void InsertQuarter()
         {
             _textWriter.WriteLine( BaseConstants.INSERT_QUARTER_NO_QUARTER_STATE );
+            _gumballMachine.QuarterCounter.Inc();
             _gumballMachine.SetHasQuarterState();
         }
 
@@ -34,6 +35,11 @@ namespace GumballMachine.GumbalMachineWithState
         public void Dispense()
         {
             _textWriter.WriteLine( BaseConstants.DISPENSE_NO_QUARTER_STATE );
+        }
+
+        public void ReFill( uint count )
+        {
+            _textWriter.WriteLine( MultiGumbalMachineConstants.REFILL_NO_QUARTER_STATE );
         }
 
         public override string ToString()

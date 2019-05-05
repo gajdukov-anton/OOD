@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GumballMachine.Utils;
+using System;
 using System.IO;
 
 namespace GumballMachine.GumbalMachineWithState
@@ -16,29 +17,29 @@ namespace GumballMachine.GumbalMachineWithState
 
         public void InsertQuarter()
         {
-            _textWriter.WriteLine( Constants.INSERT_QUARTER_HAS_QUARTER_STATE );
+            _textWriter.WriteLine( BaseConstants.INSERT_QUARTER_HAS_QUARTER_STATE );
         }
 
         public void EjectQuarter()
         {
-            _textWriter.WriteLine( Constants.EJECT_QUARTER_HAS_QUARTER_STATE );
+            _textWriter.WriteLine( BaseConstants.EJECT_QUARTER_HAS_QUARTER_STATE );
             _gumballMachine.SetNoQuarterState();
         }
 
         public void TurnCrank()
         {
-            _textWriter.WriteLine( Constants.TURN_CRANK_HAS_QUARTER_STATE );
+            _textWriter.WriteLine( BaseConstants.TURN_CRANK_HAS_QUARTER_STATE );
             _gumballMachine.SetSoldState();
         }
 
         public void Dispense()
         {
-            _textWriter.WriteLine( Constants.DISPENSE_HAS_QUARTER_STATE );
+            _textWriter.WriteLine( BaseConstants.DISPENSE_HAS_QUARTER_STATE );
         }
 
         public override string ToString()
         {
-            return Constants.TO_STRING_HAS_QUARTER_STATE;
+            return BaseConstants.TO_STRING_HAS_QUARTER_STATE;
         }
     }
 }

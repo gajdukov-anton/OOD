@@ -49,7 +49,17 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GumballMachineWithStateTest.cs" />
+    <Compile Include="GumballMachineWithState\GumballMachineWithStateTest.cs" />
+    <Compile Include="GumballMachineWithState\HasQuarterStateTest.cs" />
+    <Compile Include="GumballMachineWithState\NoQuarterStateTest.cs" />
+    <Compile Include="GumballMachineWithState\SoldOutStateTest.cs" />
+    <Compile Include="GumballMachineWithState\SoldStateTest.cs" />
+    <Compile Include="MultiGumballMachineWithState\HasQuarterStateTest.cs" />
+    <Compile Include="MultiGumballMachineWithState\MultiGumballMachineTest.cs" />
+    <Compile Include="MultiGumballMachineWithState\NoQuarterStateTest.cs" />
+    <Compile Include="MultiGumballMachineWithState\SoldOutStateTest.cs" />
+    <Compile Include="MultiGumballMachineWithState\SoldStateTest.cs" />
+    <Compile Include="NaiveGumballMachine\NaiveGumballMachineTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

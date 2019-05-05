@@ -1,6 +1,6 @@
-﻿namespace GumballMachine.GumbalMachineWithState
+﻿namespace GumballMachine.Utils
 {
-    public static class Constants
+    public static class BaseConstants
     {
         public static readonly string INSERT_QUARTER_HAS_QUARTER_STATE = "You can't insert another quarter";
         public static readonly string EJECT_QUARTER_HAS_QUARTER_STATE = "Quarter returned";

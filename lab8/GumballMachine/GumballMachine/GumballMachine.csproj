@@ -43,7 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GumballMachineWithState\Constants.cs" />
+    <Compile Include="MultiGumballMachine\GumballMachine.cs" />
+    <Compile Include="MultiGumballMachine\HasQuarterState.cs" />
+    <Compile Include="MultiGumballMachine\IGumballMachine.cs" />
+    <Compile Include="MultiGumballMachine\IState.cs" />
+    <Compile Include="MultiGumballMachine\NoQuarterState.cs" />
+    <Compile Include="MultiGumballMachine\SoldOutState.cs" />
+    <Compile Include="MultiGumballMachine\SoldState.cs" />
+    <Compile Include="NaiveGumballMachine\Constants.cs" />
+    <Compile Include="Utils\BaseConstants.cs" />
     <Compile Include="GumballMachineWithState\GumballMachine.cs" />
     <Compile Include="GumballMachineWithState\HasQuarterState.cs" />
     <Compile Include="GumballMachineWithState\IGumballMachine.cs" />
@@ -51,8 +59,12 @@
     <Compile Include="GumballMachineWithState\NoQuarterState.cs" />
     <Compile Include="GumballMachineWithState\SoldOutState.cs" />
     <Compile Include="GumballMachineWithState\SoldState.cs" />
+    <Compile Include="NaiveGumballMachine\GumballMachine.cs" />
+    <Compile Include="NaiveGumballMachine\State.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\MultiGumbalMachineConstants.cs" />
+    <Compile Include="Utils\QuarterCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

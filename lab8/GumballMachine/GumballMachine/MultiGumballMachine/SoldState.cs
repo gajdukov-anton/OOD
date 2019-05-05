@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace GumballMachine.GumbalMachineWithState
+namespace GumballMachine.MultiGumballMachine
 {
     public class SoldState : IState
     {
@@ -38,10 +38,19 @@ namespace GumballMachine.GumbalMachineWithState
                 _textWriter.WriteLine( BaseConstants.DISPENSE_SOLD_STATE );
                 _gumballMachine.SetSoldOutState();
             }
+            else if (!_gumballMachine.QuarterCounter.IsEmptyCounter() )
+            {
+                _gumballMachine.SetHasQuarterState();
+            }
             else
             {
                 _gumballMachine.SetNoQuarterState();
             }
+        }
+
+        public void ReFill( uint count )
+        {
+            _textWriter.WriteLine( MultiGumbalMachineConstants.REFILL_SOLD_STATE );
         }
 
         public override string ToString()

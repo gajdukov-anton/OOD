@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GumballMachine
 {
@@ -10,6 +6,23 @@ namespace GumballMachine
     {
         static void Main( string [] args )
         {
+            MultiGumballMachine.GumballMachine gumballMachine = new MultiGumballMachine.GumballMachine( 2, Console.Out );
+            gumballMachine.InsertQuarter();
+            gumballMachine.InsertQuarter();
+            gumballMachine.InsertQuarter();
+            gumballMachine.TurnCrank();
+            gumballMachine.TurnCrank();
+            gumballMachine.EjectQuarter();
+
+            Console.WriteLine( "---------------" );
+
+            NaiveGumballMachine.GumballMachine naiveGumballMachine = new NaiveGumballMachine.GumballMachine( 2, Console.Out );
+            naiveGumballMachine.InsertQuarter();
+            naiveGumballMachine.InsertQuarter();
+            naiveGumballMachine.InsertQuarter();
+            naiveGumballMachine.TurnCrank();
+            naiveGumballMachine.TurnCrank();
+            naiveGumballMachine.EjectQuarter();
         }
     }
 }

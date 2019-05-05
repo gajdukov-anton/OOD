@@ -1,10 +1,12 @@
 ﻿using GumballMachine.Utils;
 using System.IO;
 
-namespace GumballMachine.GumbalMachineWithState
+namespace GumballMachine.MultiGumballMachine
 {
     public class GumballMachine : IGumballMachine
     {
+        public QuarterCounter QuarterCounter { get; private set; }
+
         private uint _count;
         private IState _state;
         private TextWriter _textWriter;
@@ -21,7 +23,7 @@ namespace GumballMachine.GumbalMachineWithState
             _soldState = new SoldState( this, _textWriter );
             _noQuarterState = new NoQuarterState( this, _textWriter );
             _hasQuarterState = new HasQuarterState( this, _textWriter );
-
+            QuarterCounter = new QuarterCounter();
             _state = _count > 0 ? ( IState ) _noQuarterState : _soldOutState;
         }
 
@@ -41,10 +43,17 @@ namespace GumballMachine.GumbalMachineWithState
             _state.Dispense();
         }
 
+        public void ReFill( uint count )
+        {
+            _state.ReFill( count );
+        }
+
         public override string ToString()
         {
             var fmt = $"(Mighty Gumball, Inc.C# - enabled Standing Gumball Model #2019 (with state)Inventory:" +
-                $" { _count } gumball{ ( _count != 1 ? "s" : "" ) } Machine is { _state.ToString() })";
+                $" { GetBallsCount() } gumball{ ( GetBallsCount() != 1 ? "s" : "" ) }" +
+                $" { QuarterCounter.QuarterAmount } quarter{ ( QuarterCounter.QuarterAmount != 1 ? "s" : "" ) } " +
+                $"Machine is { _state.ToString() })";
 
             return fmt;
         }
@@ -61,6 +70,11 @@ namespace GumballMachine.GumbalMachineWithState
                 _textWriter.WriteLine( BaseConstants.RELEASE_BALL );
                 --_count;
             }
+        }
+
+        public void AddBalls( uint count )
+        {
+            _count += count;
         }
 
         public void SetSoldOutState()
