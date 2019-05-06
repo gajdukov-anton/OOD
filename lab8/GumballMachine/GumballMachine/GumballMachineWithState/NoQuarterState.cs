@@ -2,14 +2,14 @@
 using System;
 using System.IO;
 
-namespace GumballMachine.GumbalMachineWithState
+namespace GumballMachine.GumballMachineWithState
 {
     public class NoQuarterState : IState
     {
-        private IGumballMachine _gumballMachine;
+        private IGumballMachineConstext _gumballMachine;
         private TextWriter _textWriter;
 
-        public NoQuarterState(IGumballMachine gumballMachine, TextWriter textWriter )
+        public NoQuarterState( IGumballMachineConstext gumballMachine, TextWriter textWriter )
         {
             _gumballMachine = gumballMachine;
             _textWriter = textWriter;

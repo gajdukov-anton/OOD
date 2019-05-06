@@ -43,9 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GumballMachineWithState\GumballMachineContext.cs" />
+    <Compile Include="GumballMachineWithState\IGumballMachineConstext.cs" />
     <Compile Include="MultiGumballMachine\GumballMachine.cs" />
+    <Compile Include="MultiGumballMachine\GumballMachineContext.cs" />
     <Compile Include="MultiGumballMachine\HasQuarterState.cs" />
     <Compile Include="MultiGumballMachine\IGumballMachine.cs" />
+    <Compile Include="MultiGumballMachine\IGumballMachineConstext.cs" />
     <Compile Include="MultiGumballMachine\IState.cs" />
     <Compile Include="MultiGumballMachine\NoQuarterState.cs" />
     <Compile Include="MultiGumballMachine\SoldOutState.cs" />

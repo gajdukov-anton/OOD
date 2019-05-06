@@ -1,17 +1,18 @@
-﻿using GumballMachine.Utils;
+﻿using GumballMachine.MultiGumballMachine;
+using GumballMachine.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 
 namespace GumballMachineTest.MultiGumballMachineWithState
 {
     [TestClass]
-    public class MultiGumballMachineTest
+    public class GumballMachineContextTest
     {
         [TestMethod]
         public void GetBallsCountTest()
         {
             var stringWriter = new StringWriter();
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
 
             Assert.AreEqual( ( uint ) 2, gumballMachine.GetBallsCount() );
         }
@@ -25,7 +26,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                 $" { 1 } gumball{ ( 1 != 1 ? "s" : "" ) }" +
                 $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                 $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
 
             gumballMachine.ReleaseBall();
             result.WriteLine( BaseConstants.RELEASE_BALL );
@@ -42,7 +43,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                 $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                 $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                 $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
 
             Assert.AreEqual( result, gumballMachine.ToString() );
         }
@@ -55,7 +56,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                 $" { 0 } gumball{ ( 0 != 1 ? "s" : "" ) }" +
                 $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                 $"Machine is { BaseConstants.TO_STRING_SOLD_OUT_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 0, stringWriter );
+            var gumballMachine = new GumballMachineContext( 0, stringWriter );
 
             Assert.AreEqual( result, gumballMachine.ToString() );
         }
@@ -69,7 +70,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                $" { 1 } quarter{ ( 1 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_HAS_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
 
             gumballMachine.InsertQuarter();
             result.WriteLine( BaseConstants.INSERT_QUARTER_NO_QUARTER_STATE );
@@ -87,7 +88,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                $" { 3 } quarter{ ( 3 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_HAS_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
 
             for ( int i = 0; i < 3; i++ )
             {
@@ -110,7 +111,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                $" { 5 } quarter{ ( 5 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_HAS_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
 
             for ( int i = 0; i < 6; i++ )
             {
@@ -136,7 +137,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
 
             for ( int i = 0; i < 3; i++ )
             {
@@ -161,7 +162,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 0 } gumball{ ( 0 != 1 ? "s" : "" ) }" +
                $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_SOLD_OUT_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 0, stringWriter );
+            var gumballMachine = new GumballMachineContext( 0, stringWriter );
 
             gumballMachine.InsertQuarter();
             result.WriteLine( BaseConstants.INSERT_QUARTER_SOLD_OUT_STATE );
@@ -179,7 +180,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 0 } gumball{ ( 0 != 1 ? "s" : "" ) }" +
                $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_SOLD_OUT_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 0, stringWriter );
+            var gumballMachine = new GumballMachineContext( 0, stringWriter );
 
             gumballMachine.EjectQuarter();
             result.WriteLine( BaseConstants.EJECT_QUARTER_SOLD_OUT_STATE );
@@ -197,7 +198,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
 
             gumballMachine.EjectQuarter();
             result.WriteLine( BaseConstants.EJECT_QUARTER_NO_QUARTER_STATE );
@@ -215,7 +216,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
 
             gumballMachine.TurnCrank();
             result.WriteLine( BaseConstants.TURN_CRANK_NO_QUARTER_STATE );
@@ -234,7 +235,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 4, stringWriter );
+            var gumballMachine = new GumballMachineContext( 4, stringWriter );
 
             gumballMachine.InsertQuarter();
             gumballMachine.InsertQuarter();
@@ -260,7 +261,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 0 } gumball{ ( 0 != 1 ? "s" : "" ) }" +
                $" { 2 } quarter{ ( 2 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_SOLD_OUT_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
 
             for ( int i = 0; i < 4; i++ )
             {
@@ -298,7 +299,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 4, stringWriter );
+            var gumballMachine = new GumballMachineContext( 4, stringWriter );
 
             for ( int i = 0; i < 4; i++ )
             {
@@ -331,7 +332,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 4, stringWriter );
+            var gumballMachine = new GumballMachineContext( 4, stringWriter );
 
             gumballMachine.InsertQuarter();
             gumballMachine.InsertQuarter();
@@ -364,7 +365,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 0 } gumball{ ( 0 != 1 ? "s" : "" ) }" +
                $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_SOLD_OUT_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
 
             gumballMachine.InsertQuarter();
             gumballMachine.InsertQuarter();
@@ -391,7 +392,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
 
             gumballMachine.ReFill( 10 );
             result.WriteLine( MultiGumbalMachineConstants.REFILL_NO_QUARTER_STATE );
@@ -409,7 +410,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 10 } gumball{ ( 10 != 1 ? "s" : "" ) }" +
                $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 0, stringWriter );
+            var gumballMachine = new GumballMachineContext( 0, stringWriter );
 
             gumballMachine.ReFill( 10 );
             result.WriteLine( MultiGumbalMachineConstants.GetReFillSoldOutStateConst( 10 ) );
@@ -427,7 +428,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                $" { 1 } quarter{ ( 1 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_HAS_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
 
             gumballMachine.InsertQuarter();
             gumballMachine.ReFill( 10 );
@@ -447,7 +448,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 10 } gumball{ ( 10 != 1 ? "s" : "" ) }" +
                $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 1, stringWriter );
+            var gumballMachine = new GumballMachineContext( 1, stringWriter );
 
             gumballMachine.InsertQuarter();
             gumballMachine.TurnCrank();
@@ -471,7 +472,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 0 } gumball{ ( 0 != 1 ? "s" : "" ) }" +
                $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_SOLD_OUT_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 1, stringWriter );
+            var gumballMachine = new GumballMachineContext( 1, stringWriter );
 
             gumballMachine.InsertQuarter();
             gumballMachine.TurnCrank();
@@ -495,7 +496,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
                $" { 10 } gumball{ ( 10 != 1 ? "s" : "" ) }" +
                $" { 1 } quarter{ ( 1 != 1 ? "s" : "" ) } " +
                $"Machine is { BaseConstants.TO_STRING_HAS_QUARTER_STATE })";
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 1, stringWriter );
+            var gumballMachine = new GumballMachineContext( 1, stringWriter );
 
             gumballMachine.InsertQuarter();
             gumballMachine.InsertQuarter();

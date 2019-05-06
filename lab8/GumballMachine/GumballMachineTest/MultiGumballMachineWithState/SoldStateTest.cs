@@ -13,7 +13,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
         {
             var stringWriter = new StringWriter();
             var result = new StringWriter();
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
             var gumballMachineStateString = $"(Mighty Gumball, Inc.C# - enabled Standing Gumball Model #2019 (with state)Inventory:" +
                 $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                 $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
@@ -32,7 +32,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
         {
             var stringWriter = new StringWriter();
             var result = new StringWriter();
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
             var gumballMachineStateString = $"(Mighty Gumball, Inc.C# - enabled Standing Gumball Model #2019 (with state)Inventory:" +
                 $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                 $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
@@ -51,7 +51,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
         {
             var stringWriter = new StringWriter();
             var result = new StringWriter();
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
             var gumballMachineStateString = $"(Mighty Gumball, Inc.C# - enabled Standing Gumball Model #2019 (with state)Inventory:" +
                 $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) }" +
                 $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
@@ -70,7 +70,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
         {
             var stringWriter = new StringWriter();
             var result = new StringWriter();
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
             var gumballMachineStateString = $"(Mighty Gumball, Inc.C# - enabled Standing Gumball Model #2019 (with state)Inventory:" +
                 $" { 1 } gumball{ ( 1 != 1 ? "s" : "" ) }" +
                 $" { 2 } quarter{ ( 2 != 1 ? "s" : "" ) } " +
@@ -93,7 +93,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
         {
             var stringWriter = new StringWriter();
             var result = new StringWriter();
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
             var gumballMachineStateString = $"(Mighty Gumball, Inc.C# - enabled Standing Gumball Model #2019 (with state)Inventory:" +
                 $" { 1 } gumball{ ( 1 != 1 ? "s" : "" ) }" +
                 $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +
@@ -112,7 +112,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
         {
             var stringWriter = new StringWriter();
             var result = new StringWriter();
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 1, stringWriter );
+            var gumballMachine = new GumballMachineContext( 1, stringWriter );
             var gumballMachineStateString = $"(Mighty Gumball, Inc.C# - enabled Standing Gumball Model #2019 (with state)Inventory:" +
                 $" { 0 } gumball{ ( 0 != 1 ? "s" : "" ) }" +
                 $" { 1 } quarter{ ( 1 != 1 ? "s" : "" ) } " +
@@ -139,7 +139,7 @@ namespace GumballMachineTest.MultiGumballMachineWithState
         {
             var stringWriter = new StringWriter();
             var result = new StringWriter();
-            var gumballMachine = new GumballMachine.MultiGumballMachine.GumballMachine( 1, stringWriter );
+            var gumballMachine = new GumballMachineContext( 1, stringWriter );
             var gumballMachineStateString = $"(Mighty Gumball, Inc.C# - enabled Standing Gumball Model #2019 (with state)Inventory:" +
                 $" { 0 } gumball{ ( 0 != 1 ? "s" : "" ) }" +
                 $" { 0 } quarter{ ( 0 != 1 ? "s" : "" ) } " +

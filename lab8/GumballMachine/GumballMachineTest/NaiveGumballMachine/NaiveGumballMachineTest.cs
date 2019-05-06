@@ -194,7 +194,6 @@ namespace GumballMachineTest.NaiveGumballMachine
 
             gumballMachine.TurnCrank();
             result.WriteLine( BaseConstants.TURN_CRANK_NO_QUARTER_STATE );
-           // result.WriteLine( BaseConstants.DISPENSE_NO_QUARTER_STATE );
 
             Assert.AreEqual( result.ToString(), stringWriter.ToString() );
             Assert.AreEqual( gumballMachineStateString, gumballMachine.ToString() );

@@ -1,86 +1,34 @@
-﻿using GumballMachine.Utils;
-using System.IO;
+﻿using System.IO;
 
-namespace GumballMachine.GumbalMachineWithState
+namespace GumballMachine.GumballMachineWithState
 {
     public class GumballMachine : IGumballMachine
     {
-        private uint _count;
-        private IState _state;
-        private TextWriter _textWriter;
-        private readonly SoldOutState _soldOutState;
-        private readonly SoldState _soldState;
-        private readonly NoQuarterState _noQuarterState;
-        private readonly HasQuarterState _hasQuarterState;
+        private IGumballMachineConstext _gumballMachineConstext;
 
         public GumballMachine( uint numBalls, TextWriter textWriter )
         {
-            _count = numBalls;
-            _textWriter = textWriter;
-            _soldOutState = new SoldOutState( this, _textWriter );
-            _soldState = new SoldState( this, _textWriter );
-            _noQuarterState = new NoQuarterState( this, _textWriter );
-            _hasQuarterState = new HasQuarterState( this, _textWriter );
-
-            _state = _count > 0 ? ( IState ) _noQuarterState : _soldOutState;
+            _gumballMachineConstext = new GumballMachineContext( numBalls, textWriter );
         }
 
         public void EjectQuarter()
         {
-            _state.EjectQuarter();
+            _gumballMachineConstext.EjectQuarter();
         }
 
         public void InsertQuarter()
         {
-            _state.InsertQuarter();
+            _gumballMachineConstext.InsertQuarter();
         }
 
         public void TurnCrank()
         {
-            _state.TurnCrank();
-            _state.Dispense();
+            _gumballMachineConstext.TurnCrank();
         }
 
         public override string ToString()
         {
-            var fmt = $"(Mighty Gumball, Inc.C# - enabled Standing Gumball Model #2019 (with state)Inventory:" +
-                $" { _count } gumball{ ( _count != 1 ? "s" : "" ) } Machine is { _state.ToString() })";
-
-            return fmt;
-        }
-
-        public uint GetBallsCount()
-        {
-            return _count;
-        }
-
-        public void ReleaseBall()
-        {
-            if ( _count != 0 )
-            {
-                _textWriter.WriteLine( BaseConstants.RELEASE_BALL );
-                --_count;
-            }
-        }
-
-        public void SetSoldOutState()
-        {
-            _state = _soldOutState;
-        }
-
-        public void SetNoQuarterState()
-        {
-            _state = _noQuarterState;
-        }
-
-        public void SetSoldState()
-        {
-            _state = _soldState;
-        }
-
-        public void SetHasQuarterState()
-        {
-            _state = _hasQuarterState;
+            return _gumballMachineConstext.ToString();
         }
     }
 }

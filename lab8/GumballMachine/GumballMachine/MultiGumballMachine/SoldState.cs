@@ -6,10 +6,10 @@ namespace GumballMachine.MultiGumballMachine
 {
     public class SoldState : IState
     {
-        private IGumballMachine _gumballMachine;
+        private IGumballMachineConstext _gumballMachine;
         private TextWriter _textWriter;
 
-        public SoldState( IGumballMachine gumballMachine, TextWriter textWriter )
+        public SoldState( IGumballMachineConstext gumballMachine, TextWriter textWriter )
         {
             _gumballMachine = gumballMachine;
             _textWriter = textWriter;

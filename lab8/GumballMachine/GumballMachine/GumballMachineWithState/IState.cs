@@ -1,4 +1,4 @@
-﻿namespace GumballMachine.GumbalMachineWithState
+﻿namespace GumballMachine.GumballMachineWithState
 {
     public interface IState
     {

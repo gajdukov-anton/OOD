@@ -1,13 +1,9 @@
-﻿namespace GumballMachine.GumbalMachineWithState
+﻿namespace GumballMachine.GumballMachineWithState
 {
     public interface IGumballMachine
     {
-        void ReleaseBall();
-        uint GetBallsCount();
-
-        void SetSoldOutState();
-        void SetNoQuarterState();
-        void SetSoldState();
-        void SetHasQuarterState();
+        void InsertQuarter();
+        void EjectQuarter();
+        void TurnCrank();
     }
 }

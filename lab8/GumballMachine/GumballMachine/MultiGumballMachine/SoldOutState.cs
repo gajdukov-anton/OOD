@@ -1,15 +1,14 @@
 ﻿using GumballMachine.Utils;
-using System;
 using System.IO;
 
 namespace GumballMachine.MultiGumballMachine
 {
     public class SoldOutState : IState
     {
-        private IGumballMachine _gumballMachine;
+        private IGumballMachineConstext _gumballMachine;
         private TextWriter _textWriter;
 
-        public SoldOutState( IGumballMachine gumballMachine, TextWriter textWriter )
+        public SoldOutState( IGumballMachineConstext gumballMachine, TextWriter textWriter )
         {
             _gumballMachine = gumballMachine;
             _textWriter = textWriter;

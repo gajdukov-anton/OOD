@@ -6,10 +6,10 @@ namespace GumballMachine.MultiGumballMachine
 {
     public class HasQuarterState : IState
     {
-        private IGumballMachine _gumballMachine;
+        private IGumballMachineConstext _gumballMachine;
         private TextWriter _textWriter;
 
-        public HasQuarterState( IGumballMachine gumballMachine, TextWriter textWriter )
+        public HasQuarterState( IGumballMachineConstext gumballMachine, TextWriter textWriter )
         {
             _gumballMachine = gumballMachine;
             _textWriter = textWriter;

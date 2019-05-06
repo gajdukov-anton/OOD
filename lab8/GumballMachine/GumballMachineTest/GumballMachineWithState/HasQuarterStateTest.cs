@@ -1,4 +1,4 @@
-﻿using GumballMachine.GumbalMachineWithState;
+﻿using GumballMachine.GumballMachineWithState;
 using GumballMachine.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
@@ -13,7 +13,7 @@ namespace GumballMachineTest.GumballMachineWithState
         {
             var stringWriter = new StringWriter();
             var result = new StringWriter();
-            var gumballMachine = new GumballMachine.GumbalMachineWithState.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
             var gumballMachineStateString = $"(Mighty Gumball, Inc.C# - enabled Standing Gumball Model #2019 (with state)Inventory:" +
                 $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) } " +
                 $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
@@ -34,7 +34,7 @@ namespace GumballMachineTest.GumballMachineWithState
         {
             var stringWriter = new StringWriter();
             var result = new StringWriter();
-            var gumballMachine = new GumballMachine.GumbalMachineWithState.GumballMachine( 2, stringWriter );
+            var gumballMachine = new GumballMachineContext( 2, stringWriter );
             var gumballMachineStateString = $"(Mighty Gumball, Inc.C# - enabled Standing Gumball Model #2019 (with state)Inventory:" +
                 $" { 2 } gumball{ ( 2 != 1 ? "s" : "" ) } " +
                 $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
@@ -55,7 +55,7 @@ namespace GumballMachineTest.GumballMachineWithState
         {
             var stringWriter = new StringWriter();
             var result = new StringWriter();
-            var gumballMachine = new GumballMachine.GumbalMachineWithState.GumballMachine( 3, stringWriter );
+            var gumballMachine = new GumballMachineContext( 3, stringWriter );
             var gumballMachineStateString = $"(Mighty Gumball, Inc.C# - enabled Standing Gumball Model #2019 (with state)Inventory:" +
                 $" { 3 } gumball{ ( 3 != 1 ? "s" : "" ) } " +
                 $"Machine is { BaseConstants.TO_STRING_SOLD_STATE })";
@@ -76,7 +76,7 @@ namespace GumballMachineTest.GumballMachineWithState
         {
             var stringWriter = new StringWriter();
             var result = new StringWriter();
-            var gumballMachine = new GumballMachine.GumbalMachineWithState.GumballMachine( 3, stringWriter );
+            var gumballMachine = new GumballMachineContext( 3, stringWriter );
             var gumballMachineStateString = $"(Mighty Gumball, Inc.C# - enabled Standing Gumball Model #2019 (with state)Inventory:" +
                 $" { 3 } gumball{ ( 3 != 1 ? "s" : "" ) } " +
                 $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
@@ -94,7 +94,7 @@ namespace GumballMachineTest.GumballMachineWithState
         {
             var stringWriter = new StringWriter();
             var result = new StringWriter();
-            var gumballMachine = new GumballMachine.GumbalMachineWithState.GumballMachine( 3, stringWriter );
+            var gumballMachine = new GumballMachineContext( 3, stringWriter );
             var gumballMachineStateString = $"(Mighty Gumball, Inc.C# - enabled Standing Gumball Model #2019 (with state)Inventory:" +
                 $" { 3 } gumball{ ( 3 != 1 ? "s" : "" ) } " +
                 $"Machine is { BaseConstants.TO_STRING_NO_QUARTER_STATE })";
