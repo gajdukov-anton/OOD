@@ -13,7 +13,7 @@ namespace Composite.Groups
         public int? GetLineWidth()
         {
             int? width = GetFirstWidth();
-            return IsAllLineWidthEquals( width ) ? width : null;
+            return IsAllLineWidthEquals() ? width : null;
         }
 
         public void SetLineWidth( int width )
@@ -34,10 +34,10 @@ namespace Composite.Groups
             return null;
         }
 
-        private bool IsAllLineWidthEquals( int? width )
+        private bool IsAllLineWidthEquals()
         {
-
-            if ( _styles == null )
+            int? width = GetFirstWidth();
+            if ( _styles == null || IsStylesEmpty() )
             {
                 return false;
             }
@@ -49,7 +49,7 @@ namespace Composite.Groups
                     return false;
                 }
             }
-            return !IsStylesEmpty();
+            return true;
         }
     }
 }

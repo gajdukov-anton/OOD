@@ -4,8 +4,8 @@ namespace Composite.Drawable
 {
     public interface IShape : IDrawable
     {
-        Rect<double> GetFrame();
-        void SetFrame( Rect<double> rect );
+        Rect? GetFrame();
+        void SetFrame( Rect rect );
 
         IOutLineStyle GetOutlineStyle();
 

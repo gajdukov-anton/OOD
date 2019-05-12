@@ -8,7 +8,7 @@ namespace Composite.Groups
     {
         protected readonly IEnumerable<IStyle> _styles;
 
-        public GroupStyle( IEnumerable<IStyle> styles)
+        public GroupStyle( IEnumerable<IStyle> styles )
         {
             _styles = styles;
         }
@@ -24,7 +24,7 @@ namespace Composite.Groups
         public bool IsEnable()
         {
             bool isEnable = GetFirstEnable();
-            return IsAllStylesEnableEqual( isEnable ) ? isEnable : false;
+            return IsAllStylesEnableEqual() ? isEnable : false;
         }
 
         public void SetColor( Color color )
@@ -38,7 +38,44 @@ namespace Composite.Groups
         public Color GetColor()
         {
             var color = GetFirstColor();
-            return IsAllColorsEqual( color ) ? color : Color.Empty;
+            return IsAllColorsEqual() ? color : Color.Empty;
+        }
+
+        private bool IsAllColorsEqual()
+        {
+            var color = GetFirstColor();
+            if ( _styles == null || IsStylesEmpty() )
+            {
+                return false;
+            }
+
+            foreach ( var style in _styles )
+            {
+                if ( style.GetColor() != color )
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool IsAllStylesEnableEqual()
+        {
+            bool isEnable = GetFirstEnable();
+            if ( _styles == null || IsStylesEmpty() )
+            {
+                return false;
+            }
+
+            foreach ( var stytle in _styles )
+            {
+                if ( stytle.IsEnable() != isEnable )
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         protected bool IsStylesEmpty()
@@ -66,41 +103,6 @@ namespace Composite.Groups
                 return style.IsEnable();
             }
             return false;
-        }
-
-        private bool IsAllColorsEqual( Color color )
-        {
-            if (_styles == null)
-            {
-                return false;
-            }
-
-            foreach ( var style in _styles )
-            {
-                if ( style.GetColor() != color )
-                {
-                    return false;
-                }
-            }
-            return !IsStylesEmpty();
-        }
-
-        private bool IsAllStylesEnableEqual(bool isEnable)
-        {
-            if ( _styles == null )
-            {
-                return false;
-            }
-
-            foreach ( var stytle in _styles )
-            {
-                if (stytle.IsEnable() != isEnable)
-                {
-                    return false;
-                }
-            }
-
-            return !IsStylesEmpty();
         }
     }
 }

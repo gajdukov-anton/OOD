@@ -52,18 +52,27 @@ namespace Composite.Drawable
 
         private void DrawBackground( ICanvas canvas )
         {
-           /* canvas.BeginFill( _backgroundColor.ToArgb() );
-            canvas.SetLineColor( _backgroundColor.ToArgb() );
-            canvas.LineTo( 0, _height );
-            canvas.LineTo( _width, _height );
-            canvas.LineTo( _width, 0 );
-            canvas.LineTo( 0, 0 );
-            canvas.EndFill();*/
+
+            canvas.SetFillColor( _backgroundColor.ToArgb() );
+            canvas.DrawFillShapeByPoints( GetPoints() );
+
+        }
+
+        private List<Canvas.Point> GetPoints()
+        {
+            var result = new List<Canvas.Point>
+            {
+                new Canvas.Point { X = 0, Y = 0 },
+                new Canvas.Point { X = 0, Y = _height },
+                new Canvas.Point { X = _width, Y = _height },
+                new Canvas.Point { X = _width, Y = 0 }
+            };
+            return result;
         }
 
         private void DrawShapes( ICanvas canvas )
         {
-            for (int i = 0; i < _groupShapes.GetShapesCount(); i++ )
+            for ( int i = 0; i < _groupShapes.GetShapesCount(); i++ )
             {
                 _groupShapes.GetShapeAtIndex( i ).Draw( canvas );
             }

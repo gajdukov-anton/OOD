@@ -1,18 +1,18 @@
 ﻿namespace Composite.Drawable
 {
-    public class Rect<T>
+    public struct Rect
     {
-        public T Left { private set; get; }
-        public T Width { private set; get; }
-        public T Top { private set; get; }
-        public T Height { private set; get; }
+        public double left;
+        public double width;
+        public double top;
+        public double height;
 
-        public Rect(T left, T width, T top, T height)
+        public Rect(double left, double width, double top, double height)
         {
-            Left = left;
-            Width = width;
-            Top = top;
-            Height = height;
+            this.left = left;
+            this.width = width;
+            this.top = top;
+            this.height = height;
         }
     }
 }

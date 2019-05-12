@@ -1,5 +1,4 @@
 ﻿using Composite.Canvas;
-using Composite.Groups;
 using System.Collections.Generic;
 
 namespace Composite.Drawable
@@ -8,13 +7,13 @@ namespace Composite.Drawable
     {
         protected IOutLineStyle _outLineStyle = new OutLineStyle();
         protected IStyle _fillStyle = new Style();
-        protected Rect<double> _frame;
+        protected Rect _frame;
 
-        public Shape( Rect<double> frame, IStyle fillStyle, IOutLineStyle outLineStyle )
+        public Shape( Rect frame, IStyle fillStyle = null, IOutLineStyle outLineStyle = null)
         {
             _frame = frame;
-            _fillStyle = fillStyle;
-            _outLineStyle = outLineStyle;
+            _fillStyle = fillStyle ?? _fillStyle;
+            _outLineStyle = outLineStyle ?? _outLineStyle;
         }
 
         public abstract void Draw( ICanvas canvas );
@@ -29,12 +28,12 @@ namespace Composite.Drawable
             return _outLineStyle;
         }
 
-        public Rect<double> GetFrame()
+        public Rect? GetFrame()
         {
             return _frame;
         }
 
-        public void SetFrame( Rect<double> rect )
+        public void SetFrame( Rect rect )
         {
             _frame = rect;
         }

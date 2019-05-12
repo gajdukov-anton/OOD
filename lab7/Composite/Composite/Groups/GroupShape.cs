@@ -29,7 +29,12 @@ namespace Composite.Groups
 
         public void InsertShape( IShape shape, int index )
         {
-            _shapes.Insert( index, shape );
+            if ( index >= 0 && index <= _shapes.Count )
+            {
+                _shapes.Insert( index, shape );
+                return;
+            }
+            throw new IndexOutOfRangeException();
         }
 
         public void RemoveShapeAtIndex( int index )
@@ -42,7 +47,7 @@ namespace Composite.Groups
             throw new IndexOutOfRangeException();
         }
 
-        public void SetFrame( Rect<double> frame )
+        public void SetFrame( Rect frame )
         {
             if ( ValidateFrame( frame ) )
             {
@@ -50,11 +55,11 @@ namespace Composite.Groups
             }
             else
             {
-                throw new ArgumentException( "Frame must be over 0" );
+                throw new ArgumentException( "Frame height and weight must be over 0" );
             }
         }
 
-        public Rect<double> GetFrame()
+        public Rect? GetFrame()
         {
             return GetShapesCount() > 0 ? CalculateShapesFrame() : null;
         }
@@ -83,52 +88,53 @@ namespace Composite.Groups
             return _shapes.Count;
         }
 
-        private Rect<double> CalculateShapesFrame()
+        private Rect? CalculateShapesFrame()
         {
             double left = double.MaxValue;
-            double top = double.MinValue;
+            double top = double.MaxValue;
             double maxXCor = double.MinValue;
-            double minYCor = double.MaxValue;
+            double maxYCor = double.MinValue;
+
             foreach ( var shape in _shapes )
             {
-                left = shape.GetFrame().Left.CompareTo( left ) > 0 ? left : shape.GetFrame().Left;
-                top = shape.GetFrame().Top.CompareTo( top ) < 0 ? top : shape.GetFrame().Top;
+                left = shape.GetFrame().Value.left.CompareTo( left ) > 0 ? left : shape.GetFrame().Value.left;
+                top = shape.GetFrame().Value.top.CompareTo( top ) > 0 ? top : shape.GetFrame().Value.top;
 
-                var xCor = shape.GetFrame().Left + shape.GetFrame().Width;
-                var yCor = shape.GetFrame().Top - shape.GetFrame().Height;
+                var xCor = shape.GetFrame().Value.left + shape.GetFrame().Value.width;
+                var yCor = shape.GetFrame().Value.top + shape.GetFrame().Value.height;
 
                 maxXCor = maxXCor.CompareTo( xCor ) > 0 ? maxXCor : xCor;
-                minYCor = minYCor.CompareTo( yCor ) < 0 ? minYCor : yCor;
+                maxYCor = maxYCor.CompareTo( yCor ) > 0 ? maxYCor : yCor;
             }
 
-            return new Rect<double>( left, maxXCor - left, top, top - minYCor );
+            return new Rect( left, maxXCor - left, top, maxYCor - top );
         }
 
-        private void SetNewFrameToShapes( Rect<double> frame )
+        private void SetNewFrameToShapes( Rect frame )
         {
             if ( GetShapesCount() > 0 )
             {
                 var prevFrame = GetFrame();
-                double varianceX = frame.Width / prevFrame.Width;
-                double varianceY = frame.Height / prevFrame.Height;
+                double varianceX = frame.width / prevFrame.Value.width;
+                double varianceY = frame.height / prevFrame.Value.height;
 
                 foreach ( var shape in _shapes )
                 {
-                    var incrementX = shape.GetFrame().Left - prevFrame.Left;
-                    var incrementY = prevFrame.Top - shape.GetFrame().Top;
-                    var newFrame = new Rect<double>(
-                        frame.Left + ( incrementX * varianceX ),
-                        shape.GetFrame().Width * varianceX,
-                        frame.Top - ( incrementY * varianceY ),
-                        shape.GetFrame().Height * varianceY );
+                    var incrementX = shape.GetFrame().Value.left - prevFrame.Value.left;
+                    var incrementY = shape.GetFrame().Value.top - prevFrame.Value.top;
+                    var newFrame = new Rect(
+                        frame.left + ( incrementX * varianceX ),
+                        shape.GetFrame().Value.width * varianceX,
+                        frame.top + ( incrementY * varianceY ),
+                        shape.GetFrame().Value.height * varianceY );
                     shape.SetFrame( newFrame );
                 }
             }
         }
 
-        private bool ValidateFrame( Rect<double> frame )
+        private bool ValidateFrame( Rect frame )
         {
-            return frame.Height > 0 && frame.Width > 0;
+            return frame.height > 0 && frame.width > 0;
         }
 
         private IEnumerable<IOutLineStyle> CreateOutLineStyle()

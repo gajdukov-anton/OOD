@@ -5,7 +5,7 @@ namespace Composite.Drawable
 {
     public class Rectangle : Shape
     {
-        public Rectangle(Rect<double> frame, Style fillStyle, OutLineStyle outLineStyle)
+        public Rectangle(Rect frame, Style fillStyle = null, OutLineStyle outLineStyle = null)
             :base(frame, fillStyle, outLineStyle)
         { }
 
@@ -20,10 +20,10 @@ namespace Composite.Drawable
             {
                 canvas.SetLineColor( _outLineStyle.GetColor().ToArgb() );
                 canvas.SetLineWidth( _outLineStyle.GetLineWidth() ?? 0 );
-                canvas.DrawLine( new Point { X = _frame.Left, Y = _frame.Top }, new Point { X = _frame.Left, Y = _frame.Top + _frame.Height } );
-                canvas.DrawLine( new Point { X = _frame.Left, Y = _frame.Top + _frame.Height }, new Point { X = _frame.Left + _frame.Width, Y = _frame.Top + _frame.Height } );
-                canvas.DrawLine( new Point { X = _frame.Left + _frame.Width, Y = _frame.Top + _frame.Height }, new Point { X = _frame.Left + _frame.Width, Y = _frame.Top } );
-                canvas.DrawLine( new Point { X = _frame.Left + _frame.Width, Y = _frame.Top }, new Point { X = _frame.Left, Y = _frame.Top } );
+                canvas.DrawLine( new Point { X = _frame.left, Y = _frame.top }, new Point { X = _frame.left, Y = _frame.top + _frame.height } );
+                canvas.DrawLine( new Point { X = _frame.left, Y = _frame.top + _frame.height }, new Point { X = _frame.left + _frame.width, Y = _frame.top + _frame.height } );
+                canvas.DrawLine( new Point { X = _frame.left + _frame.width, Y = _frame.top + _frame.height }, new Point { X = _frame.left + _frame.width, Y = _frame.top } );
+                canvas.DrawLine( new Point { X = _frame.left + _frame.width, Y = _frame.top }, new Point { X = _frame.left, Y = _frame.top } );
             }
         }
 
@@ -31,10 +31,10 @@ namespace Composite.Drawable
         {
             var result = new List<Point>
             {
-                new Point { X = _frame.Left, Y = _frame.Top },
-                new Point { X = _frame.Left, Y = _frame.Top + _frame.Height },
-                new Point { X = _frame.Left + _frame.Width, Y = _frame.Top + _frame.Height },
-                new Point { X = _frame.Left + _frame.Width, Y = _frame.Top }
+                new Point { X = _frame.left, Y = _frame.top },
+                new Point { X = _frame.left, Y = _frame.top + _frame.height },
+                new Point { X = _frame.left + _frame.width, Y = _frame.top + _frame.height },
+                new Point { X = _frame.left + _frame.width, Y = _frame.top }
             };
             return result;
         }

@@ -6,7 +6,7 @@ namespace Composite.Drawable
     public class Triangle : Shape
     { 
 
-        public Triangle( Rect<double> frame, Style fillStyle, OutLineStyle outLineStyle )
+        public Triangle( Rect frame, Style fillStyle = null, OutLineStyle outLineStyle = null)
             : base( frame, fillStyle, outLineStyle )
         { }
 
@@ -22,14 +22,14 @@ namespace Composite.Drawable
                 canvas.SetLineColor( _outLineStyle.GetColor().ToArgb() );
                 canvas.SetLineWidth( _outLineStyle.GetLineWidth() ?? 1 );
                 canvas.DrawLine(
-                    new Point { X = _frame.Left + _frame.Width / 2, Y = _frame.Top },
-                    new Point { X = _frame.Left, Y = _frame.Top + _frame.Height } );
+                    new Point { X = _frame.left + _frame.width / 2, Y = _frame.top },
+                    new Point { X = _frame.left, Y = _frame.top + _frame.height } );
                 canvas.DrawLine(
-                   new Point { X = _frame.Left, Y = _frame.Top + _frame.Height },
-                   new Point { X = _frame.Left + _frame.Width, Y = _frame.Top + _frame.Height } );
+                   new Point { X = _frame.left, Y = _frame.top + _frame.height },
+                   new Point { X = _frame.left + _frame.width, Y = _frame.top + _frame.height } );
                 canvas.DrawLine(
-                   new Point { X = _frame.Left + _frame.Width, Y = _frame.Top + _frame.Height },
-                   new Point { X = _frame.Left + _frame.Width / 2, Y = _frame.Top } );
+                   new Point { X = _frame.left + _frame.width, Y = _frame.top + _frame.height },
+                   new Point { X = _frame.left + _frame.width / 2, Y = _frame.top } );
             }
         }
 
@@ -37,9 +37,9 @@ namespace Composite.Drawable
         {
             var result = new List<Point>
             {
-                new Point { X = _frame.Left + _frame.Width / 2, Y = _frame.Top },
-                new Point { X = _frame.Left, Y = _frame.Top + _frame.Height },
-                new Point { X = _frame.Left + _frame.Width, Y = _frame.Top + _frame.Height }
+                new Point { X = _frame.left + _frame.width / 2, Y = _frame.top },
+                new Point { X = _frame.left, Y = _frame.top + _frame.height },
+                new Point { X = _frame.left + _frame.width, Y = _frame.top + _frame.height }
             };
             return result;
         }
