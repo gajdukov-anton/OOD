@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System;
-using IObserver = ChartDrawer.View.IObserver;
+using ChartDrawer.View;
+using System.Linq;
 
 namespace ChartDrawer.Model
 {
-    public class HarmonicContainer : IHarmonicContainer, IHarmonicContainerPresentation
+    public class HarmonicContainer : IHarmonicContainer
     {
         private List<IHarmonic> _harmonics = new List<IHarmonic>();
-        private List<IObserver> _observers = new List<IObserver>();
+        private IHarmonicContainerObserver _observer;
 
         public HarmonicContainer()
         {
@@ -16,44 +17,11 @@ namespace ChartDrawer.Model
         public void AddHarmonic( IHarmonic harmonic )
         {
             _harmonics.Add( harmonic );
-        }
-
-        public IHarmonic[] GetAll()
-        {
-            return _harmonics.ToArray();
-        }
-
-        public int GetHarmonicCount()
-        {
-            return _harmonics.Count;
-        }
-
-        public IHarmonic GetHarmonic( int index )
-        {
-            if (index >= 0 && index < _harmonics.Count )
+            if ( _observer != null )
             {
-                return _harmonics[ index ];
-            }
-            throw new IndexOutOfRangeException();
-        }
-
-
-        public void RegisterObserver( IObserver observer )
-        {
-            _observers.Add( observer );
-        }
-
-        public void RemoveObserver( int index )
-        {
-            _observers.RemoveAt( index );
-        }
-
-        public void NotifyViews( HarmonicsChangesDto harmonicsChangesDto )
-        {
-            var observers = new List<IObserver>( _observers );
-            foreach ( var observer in observers )
-            {
-                observer.Update( harmonicsChangesDto );
+              //  var harmonicChangesListData = new ContainerActionInfo( _harmonics.Count - 1, null );
+                _observer.AddedNewHarmonic( _harmonics.Count - 1 );
+             //   _observer.UpdateSumHarmonicVizualization();
             }
         }
 
@@ -62,9 +30,40 @@ namespace ChartDrawer.Model
             if ( index >= 0 && index < _harmonics.Count )
             {
                 _harmonics.RemoveAt( index );
+                if ( _observer != null )
+                {
+                    /* var harmonicChangesListData = new ContainerActionInfo( null, index );
+                     _observer.UpdateList( harmonicChangesListData );
+                     _observer.UpdateSumHarmonicVizualization(); */
+                    _observer.RemovedHarmonic( index );
+                }
                 return;
             }
             throw new IndexOutOfRangeException();
+        }
+
+        public List<IHarmonic> GetAllHarmonic()
+        {
+            return _harmonics;
+        }
+
+        public int GetHarmonicCount()
+        {
+            return _harmonics.Count;
+        }
+
+     /*   public IHarmonic GetHarmonic( int index )
+        {
+            if ( index >= 0 && index < _harmonics.Count )
+            {
+                return _harmonics [ index ];
+            }
+            throw new IndexOutOfRangeException();
+        }*/
+        
+        public void SetViewObserver( IHarmonicContainerObserver observer )
+        {
+            _observer = observer;
         }
 
         public IHarmonicPresentation[] GetAllPresentation()
@@ -72,18 +71,13 @@ namespace ChartDrawer.Model
             return _harmonics.ToArray();
         }
 
-        public IHarmonicPresentation GetHarmonicPresentation( int index )
+     /*   public IHarmonicPresentation GetHarmonicPresentation( int index )
         {
             if ( index >= 0 && index < _harmonics.Count )
             {
                 return _harmonics [ index ];
             }
             throw new IndexOutOfRangeException();
-        }
-
-        private List<IHarmonicPresentation> GetHarmonicPresentationList()
-        {
-            return new List<IHarmonicPresentation>( _harmonics );
-        }
+        }*/
     }
 }

@@ -9,6 +9,6 @@ namespace ChartDrawer.Controller
         void SetNewFrequency( int index, double value );
         void SetNewPhase( int index, double value );
         void SetNewHarmonicKind( int index, HarmonicKind value );
-        IAddingNewHarmonicController GetAddingNewHarmonicController();
+        void StartAddingNewHarmonic();
     }
 }

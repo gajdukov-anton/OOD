@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using ChartDrawer.Model;
+using ChartDrawer.View;
 
 namespace ChartDrawer
 {
@@ -15,19 +16,25 @@ namespace ChartDrawer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault( false );
             var harmonicContainer = new HarmonicContainer();
-            FillHarmonicContainer( harmonicContainer );
             var mainMenuController = new Controller.MainMenuController( harmonicContainer );
-            var mainMenu = new View.MainMenu( harmonicContainer, mainMenuController );
-            harmonicContainer.RegisterObserver( mainMenu );
-
-            Application.Run( mainMenu );
+         //   FillHarmonicContainer( harmonicContainer, mainMenuController.MainMenu );
+            
+            Application.Run( mainMenuController.MainMenu );
         }
 
-        private static void FillHarmonicContainer( IHarmonicContainer harmonicContainer )
+        private static void FillHarmonicContainer( IHarmonicContainer harmonicContainer, IHarmonicObserver harmonicObserver )
         {
-            harmonicContainer.AddHarmonic( new Harmonic( 10, 12, 14, HarmonicKind.Cos ) );
-            harmonicContainer.AddHarmonic( new Harmonic( 100, 120, 140, HarmonicKind.Sin ) );
-            harmonicContainer.AddHarmonic( new Harmonic( 1000, 1200, 1400, HarmonicKind.Cos ) );
+            var harmonicOne = new Harmonic( 4.38, 2.25, 1.5, HarmonicKind.Sin );
+            var harmonicTwo = new Harmonic( 1, 1, 5, HarmonicKind.Cos );
+            var harmonicThree = new Harmonic( 3, -3, 0.3, HarmonicKind.Sin );
+
+            harmonicOne.SetViewObserver( harmonicObserver );
+            harmonicTwo.SetViewObserver( harmonicObserver );
+            harmonicThree.SetViewObserver( harmonicObserver );
+
+            harmonicContainer.AddHarmonic( harmonicOne );
+            harmonicContainer.AddHarmonic( harmonicTwo );
+            harmonicContainer.AddHarmonic( harmonicThree );
         }
     }
 }

@@ -66,39 +66,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\AddingNewHarmonicController.cs" />
-    <Compile Include="Controller\IAddingNewHarmonicController.cs" />
+    <Compile Include="Controller\AddingHarmonicController.cs" />
+    <Compile Include="Controller\IAddingHarmonicController.cs" />
     <Compile Include="Controller\IMainMenuController.cs" />
     <Compile Include="Controller\MainMenuController.cs" />
     <Compile Include="Model\Harmonic.cs" />
+    <Compile Include="Model\ContainerActionInfo.cs" />
     <Compile Include="Model\HarmonicContainer.cs" />
     <Compile Include="Model\HarmonicKind.cs" />
-    <Compile Include="Model\HarmonicPropertiesDto.cs" />
-    <Compile Include="Model\HarmonicsChangesDto.cs" />
     <Compile Include="Model\IHarmonic.cs" />
     <Compile Include="Model\IHarmonicContainer.cs" />
     <Compile Include="Model\IHarmonicContainerPresentation.cs" />
     <Compile Include="Model\IHarmonicPresentation.cs" />
-    <Compile Include="View\AddingNewHarmonics.cs">
+    <Compile Include="Util\Constants.cs" />
+    <Compile Include="Util\Validator.cs" />
+    <Compile Include="View\AddingHarmonicsView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\AddingNewHarmonics.Designer.cs">
-      <DependentUpon>AddingNewHarmonics.cs</DependentUpon>
+    <Compile Include="View\AddingHarmonicsView.Designer.cs">
+      <DependentUpon>AddingHarmonicsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\IObserver.cs" />
-    <Compile Include="View\MainMenu.cs">
+    <Compile Include="Model\IHarmonicContainerObserver.cs" />
+    <Compile Include="Model\IHarmonicObserver.cs" />
+    <Compile Include="View\HarmonicContainerVizualization.cs" />
+    <Compile Include="View\MainMenuView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\MainMenu.Designer.cs">
-      <DependentUpon>MainMenu.cs</DependentUpon>
+    <Compile Include="View\MainMenuView.Designer.cs">
+      <DependentUpon>MainMenuView.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="View\AddingNewHarmonics.resx">
-      <DependentUpon>AddingNewHarmonics.cs</DependentUpon>
+    <EmbeddedResource Include="View\AddingHarmonicsView.resx">
+      <DependentUpon>AddingHarmonicsView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\MainMenu.resx">
-      <DependentUpon>MainMenu.cs</DependentUpon>
+    <EmbeddedResource Include="View\MainMenuView.resx">
+      <DependentUpon>MainMenuView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -2,7 +2,7 @@
 {
     public interface IHarmonicContainerPresentation
     {
-        IHarmonicPresentation GetHarmonicPresentation( int index );
-        IHarmonicPresentation [] GetAllPresentation();
+    //    IHarmonicPresentation GetHarmonicPresentation( int index );
+        IHarmonicPresentation[] GetAllPresentation();
     }
 }
