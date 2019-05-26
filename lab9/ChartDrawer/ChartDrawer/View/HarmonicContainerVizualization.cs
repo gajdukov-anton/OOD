@@ -1,10 +1,6 @@
 ﻿using ChartDrawer.Model;
 using ChartDrawer.Util;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -18,9 +14,9 @@ namespace ChartDrawer.View
         private double [,] _harmonicChartCoordinate;
         private IHarmonicContainerPresentation _harmonicContainer;
         private Chart _chart;
-        private DataGridView _chartTableView;
+        private DataGridView _tableView;
 
-        public HarmonicContainerVizualization( IHarmonicContainerPresentation harmonicContainer, TabPage tabPage, DataGridView chartTableView )
+        public HarmonicContainerVizualization( IHarmonicContainerPresentation harmonicContainer, TabPage tabPage, DataGridView tableView )
         {
             _harmonicContainer = harmonicContainer;
             _chart = new Chart
@@ -28,18 +24,41 @@ namespace ChartDrawer.View
                 Parent = tabPage,
                 Dock = DockStyle.Fill
             };
-            _chartTableView = chartTableView;
-            FillXCoordinate();
+            _tableView = tableView;
+            InitializeTable();
         }
 
-        public void UpdateVizualization()
+        public void Update()
         {
             UpdateHarmonicChartYCoordinate();
             DrawChart();
-            FillTable();
+            FillTableYValue();
         }
 
-        public void DrawChart()
+        public void AddNewHarmonic(int index)
+        {
+            var harmonics = _harmonicContainer.GetAllPresentation();
+            AddHarmonicYCoordinate( harmonics [ index ] );
+            DrawChart();
+            FillTableYValue();
+        }
+
+        private void InitializeTable()
+        {
+            _harmonicChartCoordinate = new double [ COORDINATE_AMOUNT, 2 ];
+            _tableView.RowCount = COORDINATE_AMOUNT;
+            _tableView.ColumnCount = 2;
+            _tableView.Columns [ 0 ].HeaderText = "x";
+            _tableView.Columns [ 1 ].HeaderText = "y";
+            double xValue = 0;
+            for ( int i = 0; i < COORDINATE_AMOUNT; i++ )
+            {
+                _harmonicChartCoordinate [ i, 0 ] = Math.Round( xValue, 5 );
+                xValue += COORDINATE_STEP;
+            }
+        }
+
+        private void DrawChart()
         {
             _chart.Series.Clear();
             _chart.ChartAreas.Clear();
@@ -59,47 +78,29 @@ namespace ChartDrawer.View
             _chart.Series.Add( mySeriesOfPoint );
         }
 
-        public void FillTable()
+        private void UpdateHarmonicChartYCoordinate()
         {
-            _chartTableView.RowCount = COORDINATE_AMOUNT;
-            _chartTableView.ColumnCount = 2;
-            _chartTableView.Columns [ 0 ].HeaderText = "x";
-            _chartTableView.Columns [ 1 ].HeaderText = "y";
-            int rows = _harmonicChartCoordinate.GetUpperBound( 0 ) + 1;
-            int columns = _harmonicChartCoordinate.Length / rows;
-            for ( int i = 0; i < rows; i++ )
+            ResetYCoordinate();
+            var harmonics = _harmonicContainer.GetAllPresentation();
+            foreach ( var harmonic in harmonics )
             {
-                for ( int j = 0; j < columns; j++ )
-                {
-                    _chartTableView.Rows [ i ].Cells [ j ].Value = _harmonicChartCoordinate [ i, j ];
-                }
+                AddHarmonicYCoordinate( harmonic );
             }
         }
 
-        public void UpdateHarmonicChartYCoordinate()
+        private void ResetYCoordinate()
         {
             for ( int i = 0; i < COORDINATE_AMOUNT; i++ )
             {
                 _harmonicChartCoordinate [ i, 1 ] = Math.Round( 0.0, 5 );
             }
-            var harmonics = _harmonicContainer.GetAllPresentation();
-            foreach ( var harmonic in harmonics )
-            {
-                for ( int i = 0; i < COORDINATE_AMOUNT; i++ )
-                {
-                    _harmonicChartCoordinate [ i, 1 ] += Math.Round( GetYValue( _harmonicChartCoordinate [ i, 0 ], harmonic ), 5 );
-                }
-            }
         }
 
-        private void FillXCoordinate()
+        private void AddHarmonicYCoordinate( IHarmonicPresentation harmonic )
         {
-            _harmonicChartCoordinate = new double [ COORDINATE_AMOUNT, 2 ];
-            double xValue = 0;
             for ( int i = 0; i < COORDINATE_AMOUNT; i++ )
             {
-                _harmonicChartCoordinate [ i, 0 ] = Math.Round( xValue, 5 );
-                xValue += COORDINATE_STEP;
+                _harmonicChartCoordinate [ i, 1 ] += Math.Round( GetYValue( _harmonicChartCoordinate [ i, 0 ], harmonic ), 5 );
             }
         }
 
@@ -111,6 +112,19 @@ namespace ChartDrawer.View
             return harmonicPresentation.GetHarmonicKind() == HarmonicKind.Sin
                 ? amplitude * Math.Sin( frequency * xValue + phase )
                 : amplitude * Math.Cos( frequency * xValue + phase );
+        }
+
+        private void FillTableYValue()
+        {
+            int rows = _harmonicChartCoordinate.GetUpperBound( 0 ) + 1;
+            int columns = _harmonicChartCoordinate.Length / rows;
+            for ( int i = 0; i < rows; i++ )
+            {
+                for ( int j = 0; j < columns; j++ )
+                {
+                    _tableView.Rows [ i ].Cells [ j ].Value = _harmonicChartCoordinate [ i, j ];
+                }
+            }
         }
     }
 }

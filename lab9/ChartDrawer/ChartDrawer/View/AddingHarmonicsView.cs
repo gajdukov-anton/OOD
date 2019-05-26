@@ -17,7 +17,7 @@ namespace ChartDrawer.View
             _addingHarmonicController = addingNewHarmonicController;
             _harmonicPresentation = harmonicPresentation;
             FillPropertiesDefaultValue( _harmonicPresentation );
-            HarmonicPropertyChanged();
+            HarmonicPropertiesChanged();
         }
 
         private void FillPropertiesDefaultValue( IHarmonicPresentation harmonicPresentation )
@@ -45,9 +45,9 @@ namespace ChartDrawer.View
             _addingHarmonicController.Cancel();
         }
 
-        public void HarmonicPropertyChanged()
+        public void HarmonicPropertiesChanged()
         {
-            harmonicStringPresentation.Text = _harmonicPresentation.ToString();
+            harmonicStringPresentation.Text = Convertor.ConvertHarmonicToStr( _harmonicPresentation );
         }
 
         private void AmplitudeTextBox_TextChanged( object sender, EventArgs e )

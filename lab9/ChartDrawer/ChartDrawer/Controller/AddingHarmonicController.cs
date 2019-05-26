@@ -10,10 +10,10 @@ namespace ChartDrawer.Controller
         private AddingHarmonicsView _addingNewHarmonicsView;
         private IHarmonicObserver _newHarmonicObserver;
 
-        public AddingHarmonicController( IHarmonicContainer harmonicContainer, IHarmonicObserver harmonicObserver )
+        public AddingHarmonicController( IHarmonicContainer harmonicContainer, IHarmonicObserver newHarmonicObserver )
         {
             _harmonicContainer = harmonicContainer;
-            _newHarmonicObserver = harmonicObserver;
+            _newHarmonicObserver = newHarmonicObserver;
             _harmonic = new Harmonic();
             _addingNewHarmonicsView = new AddingHarmonicsView( _harmonic, this );
             _harmonic.SetViewObserver( _addingNewHarmonicsView );

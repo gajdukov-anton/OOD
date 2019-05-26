@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System;
-using ChartDrawer.View;
-using System.Linq;
 
 namespace ChartDrawer.Model
 {
@@ -19,9 +17,7 @@ namespace ChartDrawer.Model
             _harmonics.Add( harmonic );
             if ( _observer != null )
             {
-              //  var harmonicChangesListData = new ContainerActionInfo( _harmonics.Count - 1, null );
                 _observer.AddedNewHarmonic( _harmonics.Count - 1 );
-             //   _observer.UpdateSumHarmonicVizualization();
             }
         }
 
@@ -32,14 +28,10 @@ namespace ChartDrawer.Model
                 _harmonics.RemoveAt( index );
                 if ( _observer != null )
                 {
-                    /* var harmonicChangesListData = new ContainerActionInfo( null, index );
-                     _observer.UpdateList( harmonicChangesListData );
-                     _observer.UpdateSumHarmonicVizualization(); */
                     _observer.RemovedHarmonic( index );
                 }
                 return;
             }
-            throw new IndexOutOfRangeException();
         }
 
         public List<IHarmonic> GetAllHarmonic()
@@ -51,15 +43,6 @@ namespace ChartDrawer.Model
         {
             return _harmonics.Count;
         }
-
-     /*   public IHarmonic GetHarmonic( int index )
-        {
-            if ( index >= 0 && index < _harmonics.Count )
-            {
-                return _harmonics [ index ];
-            }
-            throw new IndexOutOfRangeException();
-        }*/
         
         public void SetViewObserver( IHarmonicContainerObserver observer )
         {
@@ -70,14 +53,5 @@ namespace ChartDrawer.Model
         {
             return _harmonics.ToArray();
         }
-
-     /*   public IHarmonicPresentation GetHarmonicPresentation( int index )
-        {
-            if ( index >= 0 && index < _harmonics.Count )
-            {
-                return _harmonics [ index ];
-            }
-            throw new IndexOutOfRangeException();
-        }*/
     }
 }

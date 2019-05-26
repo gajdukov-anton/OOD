@@ -6,8 +6,7 @@ namespace ChartDrawer.Util
     {
         public static double? ProcessTextBoxStringValue( string value )
         {
-            double result = 0;
-            return double.TryParse( value, out result ) ? ( double? ) result : null;
+            return double.TryParse( value, out double result ) ? ( double? ) result : null;
         }
     }
 }

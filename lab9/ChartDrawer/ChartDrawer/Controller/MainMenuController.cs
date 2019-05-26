@@ -6,13 +6,13 @@ namespace ChartDrawer.Controller
     public class MainMenuController : IMainMenuController
     {
         private IHarmonicContainer _harmonicContainer;
-        public MainMenuView MainMenu { private set; get; }
+        public MainMenuView MainMenuView { private set; get; }
 
         public MainMenuController( IHarmonicContainer harmonicContainer )
         {
             _harmonicContainer = harmonicContainer;
-            MainMenu = new MainMenuView( _harmonicContainer, this );
-            _harmonicContainer.SetViewObserver( MainMenu );
+            MainMenuView = new MainMenuView( _harmonicContainer, this );
+            _harmonicContainer.SetViewObserver( MainMenuView );
         }
 
         public void RemoveHarmonic( int index )
@@ -42,7 +42,7 @@ namespace ChartDrawer.Controller
 
         public void StartAddingNewHarmonic()
         {
-            var addingHarmonicController = new AddingHarmonicController( _harmonicContainer, MainMenu );
+            var addingHarmonicController = new AddingHarmonicController( _harmonicContainer, MainMenuView );
             addingHarmonicController.Start();
         }
     }

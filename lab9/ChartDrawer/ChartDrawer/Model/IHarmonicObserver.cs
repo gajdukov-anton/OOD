@@ -2,6 +2,6 @@
 {
     public interface IHarmonicObserver
     {
-        void HarmonicPropertyChanged();
+        void HarmonicPropertiesChanged();
     }
 }

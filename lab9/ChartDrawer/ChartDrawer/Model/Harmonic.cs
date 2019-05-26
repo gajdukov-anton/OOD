@@ -1,6 +1,4 @@
-﻿using ChartDrawer.View;
-
-namespace ChartDrawer.Model
+﻿namespace ChartDrawer.Model
 {
     public class Harmonic : IHarmonic
     {
@@ -31,7 +29,7 @@ namespace ChartDrawer.Model
             _amplitude = amplitude;
             if (_observer != null)
             {
-                _observer.HarmonicPropertyChanged();
+                _observer.HarmonicPropertiesChanged();
             }
         }
 
@@ -40,7 +38,7 @@ namespace ChartDrawer.Model
             _frequency = frequency;
             if ( _observer != null )
             {
-                _observer.HarmonicPropertyChanged();
+                _observer.HarmonicPropertiesChanged();
             }
         }
 
@@ -49,7 +47,7 @@ namespace ChartDrawer.Model
             _phase = phase;
             if ( _observer != null )
             {
-                _observer.HarmonicPropertyChanged();
+                _observer.HarmonicPropertiesChanged();
             }
         }
 
@@ -58,7 +56,7 @@ namespace ChartDrawer.Model
             _harmonicKind = harmonicKind;
             if ( _observer != null )
             {
-                _observer.HarmonicPropertyChanged();
+                _observer.HarmonicPropertiesChanged();
             }
         }
 
@@ -80,11 +78,6 @@ namespace ChartDrawer.Model
         public double GetPhase()
         {
             return _phase;
-        }
-
-        public override string ToString()
-        {
-            return $"{_amplitude}*{_harmonicKind.ToString()}({_frequency}*x+{_phase})";
         }
 
         public void SetViewObserver( IHarmonicObserver observer )

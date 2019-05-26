@@ -71,7 +71,6 @@
     <Compile Include="Controller\IMainMenuController.cs" />
     <Compile Include="Controller\MainMenuController.cs" />
     <Compile Include="Model\Harmonic.cs" />
-    <Compile Include="Model\ContainerActionInfo.cs" />
     <Compile Include="Model\HarmonicContainer.cs" />
     <Compile Include="Model\HarmonicKind.cs" />
     <Compile Include="Model\IHarmonic.cs" />
@@ -79,6 +78,7 @@
     <Compile Include="Model\IHarmonicContainerPresentation.cs" />
     <Compile Include="Model\IHarmonicPresentation.cs" />
     <Compile Include="Util\Constants.cs" />
+    <Compile Include="Util\Convertor.cs" />
     <Compile Include="Util\Validator.cs" />
     <Compile Include="View\AddingHarmonicsView.cs">
       <SubType>Form</SubType>

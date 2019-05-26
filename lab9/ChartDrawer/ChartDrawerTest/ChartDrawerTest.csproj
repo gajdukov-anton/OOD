@@ -49,8 +49,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelTest\HarmonicObserver.cs" />
-    <Compile Include="ModelTest\HarmonicTest.cs" />
+    <Compile Include="ModelTest\HarmonicContainerTest\HarmonicContainerObserver.cs" />
+    <Compile Include="ModelTest\HarmonicContainerTest\HarmonicContainerTest.cs" />
+    <Compile Include="ModelTest\HarmonicTest\HarmonicObserver.cs" />
+    <Compile Include="ModelTest\HarmonicTest\HarmonicTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

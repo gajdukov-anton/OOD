@@ -1,6 +1,4 @@
-﻿using ChartDrawer.View;
-
-namespace ChartDrawer.Model
+﻿namespace ChartDrawer.Model
 {
     public interface IHarmonic : IHarmonicPresentation
     {

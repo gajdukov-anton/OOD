@@ -3,63 +3,39 @@ using ChartDrawer.Model;
 using ChartDrawer.Util;
 using System;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ChartDrawer.View
 {
     public partial class MainMenuView : Form, IHarmonicObserver, IHarmonicContainerObserver
     {
-        private const double COORDINATE_STEP = 0.5;
-        private const int COORDINATE_AMOUNT = 20;
-
-        private double [,] _harmonicChartCoordinate;
         private IHarmonicContainerPresentation _harmonicContainer;
         private IMainMenuController _mainMenuController;
-        private Chart _chart;
         private HarmonicContainerVizualization _harmonicContainerVizualization;
 
         public MainMenuView( IHarmonicContainerPresentation harmonicContainer, IMainMenuController mainMenuController )
         {
             InitializeComponent();
-         //   FillXCoordinate();
             _mainMenuController = mainMenuController;
             _harmonicContainer = harmonicContainer;
-            harmonicList.Items.AddRange( _harmonicContainer.GetAllPresentation() );
             _harmonicContainerVizualization = new HarmonicContainerVizualization( _harmonicContainer, tabPage1, chartTableView );
-          //  _chart = CreateChart();
-        }
-
-        public void UpdateSumHarmonicVizualization()
-        {
-            _harmonicContainerVizualization.UpdateVizualization();
         }
 
         public void AddedNewHarmonic( int index )
         {
-            harmonicList.Items.Add( _harmonicContainer.GetAllPresentation() [ index ] );
-            _harmonicContainerVizualization.UpdateVizualization();
-
-            /*if ( harmonicChangesListData.AddedHarmonicIndex.HasValue )
-            {
-                harmonicList.Items.Add( _harmonicContainer.GetAllPresentation()[ harmonicChangesListData.AddedHarmonicIndex.Value ] );
-            }
-            else if ( harmonicChangesListData.RemovedHarmonicIndex.HasValue )
-            {
-                harmonicList.Items.RemoveAt( harmonicChangesListData.RemovedHarmonicIndex.Value );
-                ResetHarmonicPropertiesView();
-            }*/
+            harmonicList.Items.Add( Convertor.ConvertHarmonicToStr(_harmonicContainer.GetAllPresentation() [ index ]) );
+            _harmonicContainerVizualization.AddNewHarmonic( index );
         }
 
-        public void RemovedHarmonic(int index)
+        public void RemovedHarmonic( int index )
         {
             harmonicList.Items.RemoveAt( index );
             ResetHarmonicPropertiesView();
-            _harmonicContainerVizualization.UpdateVizualization();
+            _harmonicContainerVizualization.Update();
         }
 
-        public void HarmonicPropertyChanged()
+        public void HarmonicPropertiesChanged()
         {
-            _harmonicContainerVizualization.UpdateVizualization();
+            _harmonicContainerVizualization.Update();
             if ( harmonicList.SelectedIndex != -1 )
             {
                 UpdateStringPresentation( harmonicList.SelectedIndex );
@@ -72,108 +48,7 @@ namespace ChartDrawer.View
 
         private void UpdateStringPresentation( int harmonicIndex )
         {
-            harmonicList.Items [ harmonicIndex ] = _harmonicContainer.GetAllPresentation() [ harmonicIndex ].ToString();
-        }
-
-        /*  private void UpdateChartView()
-          {
-              UpdateHarmonicChartYCoordinate();
-              DrawChart();
-              FillTable();
-          }
-
-          private void UpdateHarmonicChartYCoordinate()
-          {
-              for ( int i = 0; i < COORDINATE_AMOUNT; i++ )
-              {
-                  _harmonicChartCoordinate [ i, 1 ] = Math.Round( 0.0, 5 );
-              }
-              var harmonics = _harmonicContainer.GetAllPresentation();
-              foreach ( var harmonic in harmonics )
-              {
-                  for ( int i = 0; i < COORDINATE_AMOUNT; i++ )
-                  {
-                      _harmonicChartCoordinate [ i, 1 ] += Math.Round( GetYValue( _harmonicChartCoordinate[i, 0], harmonic ), 5 );
-                  }
-              }
-          }
-
-          private void FillXCoordinate()
-          {
-              _harmonicChartCoordinate = new double [ COORDINATE_AMOUNT, 2 ];
-              double xValue = 0;
-              for ( int i = 0; i < COORDINATE_AMOUNT; i++ )
-              {
-                  _harmonicChartCoordinate [ i, 0 ] = Math.Round( xValue, 5 );
-                  xValue += COORDINATE_STEP;
-              }
-          }
-
-          private double GetYValue( double xValue, IHarmonicPresentation harmonicPresentation )
-          {
-              var amplitude = harmonicPresentation.GetAmplitude();
-              var frequency = harmonicPresentation.GetFrequency();
-              var phase = harmonicPresentation.GetPhase();
-              return harmonicPresentation.GetHarmonicKind() == HarmonicKind.Sin
-                  ? amplitude * Math.Sin( frequency * xValue + phase )
-                  : amplitude * Math.Cos( frequency * xValue + phase );
-          }
-
-          private void DrawChart()
-          {
-              _chart.Series.Clear();
-              _chart.ChartAreas.Clear();
-              _chart.ChartAreas.Add( new ChartArea( Constants.CHART_AREA_NAME ) );
-              _chart.ChartAreas [ 0 ].AxisX.Minimum = 0;
-              _chart.ChartAreas [ 0 ].AxisX.Maximum = COORDINATE_STEP * 12;
-              Series mySeriesOfPoint = new Series
-              {
-                  ChartType = SeriesChartType.Spline,
-                  ChartArea = Constants.CHART_AREA_NAME
-              };
-              int rows = _harmonicChartCoordinate.GetUpperBound( 0 ) + 1;
-              for ( int i = 0; i < rows; i++ )
-              {
-                  mySeriesOfPoint.Points.AddXY( _harmonicChartCoordinate [ i, 0 ], _harmonicChartCoordinate [ i, 1 ] );
-              }
-              _chart.Series.Add( mySeriesOfPoint );
-          }
-
-          private void FillTable()
-          {
-              chartTableView.RowCount = COORDINATE_AMOUNT;
-              chartTableView.ColumnCount = 2;
-              chartTableView.Columns [ 0 ].HeaderText = "x";
-              chartTableView.Columns [ 1 ].HeaderText = "y";
-              int rows = _harmonicChartCoordinate.GetUpperBound( 0 ) + 1;
-              int columns = _harmonicChartCoordinate.Length / rows;
-              for ( int i = 0; i < rows; i++ )
-              {
-                  for ( int j = 0; j < columns; j++ )
-                  {
-                      chartTableView.Rows [ i ].Cells [ j ].Value = _harmonicChartCoordinate [ i, j ];
-                  }
-              }
-          }
-
-          private Chart CreateChart()
-          {
-              return new Chart
-              {
-                  Parent = tabPage1,
-                  Dock = DockStyle.Fill
-              };
-          }*/
-
-        private double? ProcessTextBoxStringValue( string value )
-        {
-            double result = 0;
-            return double.TryParse( value, out result ) ? ( double? ) result : null;
-        }
-
-        private bool CanProcessTextBoxStringValue( TextBox textBox )
-        {
-            return textBox.Focused && !string.IsNullOrEmpty( textBox.Text ) && harmonicList.SelectedIndex != -1;
+            harmonicList.Items [ harmonicIndex ] = Convertor.ConvertHarmonicToStr( _harmonicContainer.GetAllPresentation() [ harmonicIndex ] );
         }
 
         private void SetHarmonicPropertiesToView( IHarmonicPresentation harmonic )
@@ -195,7 +70,7 @@ namespace ChartDrawer.View
             EnableInputMethods( false );
         }
 
-        private void EnableInputMethods(bool value)
+        private void EnableInputMethods( bool value )
         {
             amplitudeTextBox.Enabled = value;
             frequencyTextBox.Enabled = value;
@@ -204,8 +79,6 @@ namespace ChartDrawer.View
             cosRadioButton.Enabled = value;
             deleteHarmonicButton.Enabled = value;
         }
-
-        //event handlers
 
         private void SinRadioButton_CheckedChanged( object sender, EventArgs e )
         {
@@ -230,7 +103,7 @@ namespace ChartDrawer.View
             if ( harmonicList.SelectedIndex >= 0 )
             {
                 EnableInputMethods( true );
-                var harmonicPresentation = _harmonicContainer.GetAllPresentation()[ harmonicList.SelectedIndex ];
+                var harmonicPresentation = _harmonicContainer.GetAllPresentation() [ harmonicList.SelectedIndex ];
                 SetHarmonicPropertiesToView( harmonicPresentation );
             }
         }
@@ -259,7 +132,7 @@ namespace ChartDrawer.View
             {
                 return;
             }
-            var frequencyValue = ProcessTextBoxStringValue( frequencyTextBox.Text );
+            var frequencyValue = Validator.ProcessTextBoxStringValue( frequencyTextBox.Text );
             if ( frequencyValue != null )
             {
                 frequencyErrorProvider.Clear();
@@ -277,7 +150,7 @@ namespace ChartDrawer.View
             {
                 return;
             }
-            var phaseValue = ProcessTextBoxStringValue( phaseTextBox.Text );
+            var phaseValue = Validator.ProcessTextBoxStringValue( phaseTextBox.Text );
             if ( phaseValue != null )
             {
                 phaseErrorProvider.Clear();
@@ -287,6 +160,11 @@ namespace ChartDrawer.View
             {
                 phaseErrorProvider.SetError( phaseTextBox, Constants.IMPOSSIBLE_TO_USE_LETTERS );
             }
+        }
+
+        private bool CanProcessTextBoxStringValue( TextBox textBox )
+        {
+            return textBox.Focused && !string.IsNullOrEmpty( textBox.Text ) && harmonicList.SelectedIndex != -1;
         }
 
         private void DeleteHarmonicButton_Click( object sender, EventArgs e )
@@ -304,14 +182,13 @@ namespace ChartDrawer.View
 
         private void MainMenu_Load( object sender, EventArgs e )
         {
-            //  UpdateChartView();
-            _harmonicContainerVizualization.UpdateVizualization();
+            _harmonicContainerVizualization.Update();
             EnableInputMethods( false );
         }
 
         private void HarmonicList_SelectedIndexChanged( object sender, EventArgs e )
         {
-            if (harmonicList.Items.Count == 0)
+            if ( harmonicList.Items.Count == 0 )
             {
                 EnableInputMethods( false );
             }
