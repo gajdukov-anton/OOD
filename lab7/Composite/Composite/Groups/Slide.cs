@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using Composite.Canvas;
-using Composite.Groups;
 
-namespace Composite.Drawable
+namespace Composite.Groups
 {
     public class Slide : ISlide
     {
@@ -16,7 +15,7 @@ namespace Composite.Drawable
         {
             _width = width;
             _height = height;
-            _groupShapes = new GroupShape();
+            _groupShapes = new Shapes();
         }
 
         public void Draw( ICanvas canvas )
@@ -54,11 +53,11 @@ namespace Composite.Drawable
         {
 
             canvas.SetFillColor( _backgroundColor.ToArgb() );
-            canvas.DrawFillShapeByPoints( GetPoints() );
+            canvas.FillPolygon( GetVertices() );
 
         }
 
-        private List<Canvas.Point> GetPoints()
+        private List<Canvas.Point> GetVertices()
         {
             var result = new List<Canvas.Point>
             {

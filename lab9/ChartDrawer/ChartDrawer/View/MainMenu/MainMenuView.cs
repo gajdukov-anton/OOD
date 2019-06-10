@@ -1,36 +1,41 @@
 ﻿using ChartDrawer.Controller;
 using ChartDrawer.Model;
 using ChartDrawer.Util;
+using ChartDrawer.View.MainMenu.EventHandlers;
 using System;
 using System.Windows.Forms;
 
-namespace ChartDrawer.View
+namespace ChartDrawer.View.MainMenu
 {
     public partial class MainMenuView : Form, IHarmonicObserver, IHarmonicContainerObserver
     {
         private IHarmonicContainerPresentation _harmonicContainer;
         private IMainMenuController _mainMenuController;
-        private HarmonicContainerVizualization _harmonicContainerVizualization;
+        private HarmonicContainerVizualizer _harmonicContainerVizualization;
+        private AmplitudeEventHandler _amplitudeEventHandler;
+        private FrequencyEventHandler _frequencyEventHandler;
+        private PhaseEventHandler _phaseEventHandler;
+        private HarmonicKindEventHandler _harmonicKindEventHandler;
 
         public MainMenuView( IHarmonicContainerPresentation harmonicContainer, IMainMenuController mainMenuController )
         {
             InitializeComponent();
             _mainMenuController = mainMenuController;
             _harmonicContainer = harmonicContainer;
-            _harmonicContainerVizualization = new HarmonicContainerVizualization( _harmonicContainer, tabPage1, chartTableView );
+            _harmonicContainerVizualization = new HarmonicContainerVizualizer( _harmonicContainer, tabPage1, chartTableView );
+            _harmonicContainer.AddObserver( _harmonicContainerVizualization );
+            InitializeEventHandlers();
         }
 
         public void AddedNewHarmonic( int index )
         {
             harmonicList.Items.Add( Convertor.ConvertHarmonicToStr(_harmonicContainer.GetAllPresentation() [ index ]) );
-            _harmonicContainerVizualization.AddNewHarmonic( index );
         }
 
         public void RemovedHarmonic( int index )
         {
             harmonicList.Items.RemoveAt( index );
             ResetHarmonicPropertiesView();
-            _harmonicContainerVizualization.Update();
         }
 
         public void HarmonicPropertiesChanged()
@@ -67,6 +72,7 @@ namespace ChartDrawer.View
             phaseTextBox.Text = "";
             sinRadioButton.Checked = false;
             cosRadioButton.Checked = false;
+            harmonicList.SelectedIndex = -1;
             EnableInputMethods( false );
         }
 
@@ -80,24 +86,6 @@ namespace ChartDrawer.View
             deleteHarmonicButton.Enabled = value;
         }
 
-        private void SinRadioButton_CheckedChanged( object sender, EventArgs e )
-        {
-            if ( !sinRadioButton.Focused || harmonicList.SelectedIndex == -1 )
-            {
-                return;
-            }
-            _mainMenuController.SetNewHarmonicKind( harmonicList.SelectedIndex, HarmonicKind.Sin );
-        }
-
-        private void CosRadioButton_CheckedChanged( object sender, EventArgs e )
-        {
-            if ( !cosRadioButton.Focused || harmonicList.SelectedIndex == -1 )
-            {
-                return;
-            }
-            _mainMenuController.SetNewHarmonicKind( harmonicList.SelectedIndex, HarmonicKind.Cos );
-        }
-
         private void HarmonicList_SelectedIndexClicked( object sender, EventArgs e )
         {
             if ( harmonicList.SelectedIndex >= 0 )
@@ -106,65 +94,6 @@ namespace ChartDrawer.View
                 var harmonicPresentation = _harmonicContainer.GetAllPresentation() [ harmonicList.SelectedIndex ];
                 SetHarmonicPropertiesToView( harmonicPresentation );
             }
-        }
-
-        private void AmplitudeTextBox_TextChanged( object sender, EventArgs e )
-        {
-            if ( !CanProcessTextBoxStringValue( amplitudeTextBox ) )
-            {
-                return;
-            }
-            var amplitudeValue = Validator.ProcessTextBoxStringValue( amplitudeTextBox.Text );
-            if ( amplitudeValue != null )
-            {
-                amplitudeErrorProvider.Clear();
-                _mainMenuController.SetNewAmplitude( harmonicList.SelectedIndex, amplitudeValue.Value );
-            }
-            else
-            {
-                amplitudeErrorProvider.SetError( amplitudeTextBox, Constants.IMPOSSIBLE_TO_USE_LETTERS );
-            }
-        }
-
-        private void FrequencyTextBox_TextChanged( object sender, EventArgs e )
-        {
-            if ( !CanProcessTextBoxStringValue( frequencyTextBox ) )
-            {
-                return;
-            }
-            var frequencyValue = Validator.ProcessTextBoxStringValue( frequencyTextBox.Text );
-            if ( frequencyValue != null )
-            {
-                frequencyErrorProvider.Clear();
-                _mainMenuController.SetNewFrequency( harmonicList.SelectedIndex, frequencyValue.Value );
-            }
-            else
-            {
-                frequencyErrorProvider.SetError( frequencyTextBox, Constants.IMPOSSIBLE_TO_USE_LETTERS );
-            }
-        }
-
-        private void PhaseTextBox_TextChanged( object sender, EventArgs e )
-        {
-            if ( !CanProcessTextBoxStringValue( phaseTextBox ) )
-            {
-                return;
-            }
-            var phaseValue = Validator.ProcessTextBoxStringValue( phaseTextBox.Text );
-            if ( phaseValue != null )
-            {
-                phaseErrorProvider.Clear();
-                _mainMenuController.SetNewPhase( harmonicList.SelectedIndex, phaseValue.Value );
-            }
-            else
-            {
-                phaseErrorProvider.SetError( phaseTextBox, Constants.IMPOSSIBLE_TO_USE_LETTERS );
-            }
-        }
-
-        private bool CanProcessTextBoxStringValue( TextBox textBox )
-        {
-            return textBox.Focused && !string.IsNullOrEmpty( textBox.Text ) && harmonicList.SelectedIndex != -1;
         }
 
         private void DeleteHarmonicButton_Click( object sender, EventArgs e )
@@ -182,7 +111,6 @@ namespace ChartDrawer.View
 
         private void MainMenu_Load( object sender, EventArgs e )
         {
-            _harmonicContainerVizualization.Update();
             EnableInputMethods( false );
         }
 
@@ -192,6 +120,19 @@ namespace ChartDrawer.View
             {
                 EnableInputMethods( false );
             }
+        }
+
+        private void InitializeEventHandlers()
+        {
+            _amplitudeEventHandler = new AmplitudeEventHandler( _mainMenuController, harmonicList, amplitudeErrorProvider, amplitudeTextBox );
+            _frequencyEventHandler = new FrequencyEventHandler( _mainMenuController, harmonicList, frequencyErrorProvider, frequencyTextBox );
+            _phaseEventHandler = new PhaseEventHandler( _mainMenuController, harmonicList, phaseErrorProvider, phaseTextBox );
+            _harmonicKindEventHandler = new HarmonicKindEventHandler( _mainMenuController, harmonicList, sinRadioButton, cosRadioButton );
+        }
+
+        private void amplitudeTextBox_TextChanged( object sender, EventArgs e )
+        {
+
         }
     }
 }

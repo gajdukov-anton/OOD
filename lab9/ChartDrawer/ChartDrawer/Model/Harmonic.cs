@@ -80,7 +80,7 @@
             return _phase;
         }
 
-        public void SetViewObserver( IHarmonicObserver observer )
+        public void SetObserver( IHarmonicObserver observer )
         {
             _observer = observer;
         }

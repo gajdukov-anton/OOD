@@ -1,4 +1,4 @@
-﻿namespace ChartDrawer.View
+﻿namespace ChartDrawer.View.MainMenu
 {
     partial class MainMenuView
     {
@@ -94,10 +94,10 @@
             // phaseTextBox
             // 
             this.phaseTextBox.Location = new System.Drawing.Point(150, 170);
+            this.phaseTextBox.MaxLength = 10;
             this.phaseTextBox.Name = "phaseTextBox";
             this.phaseTextBox.Size = new System.Drawing.Size(100, 22);
             this.phaseTextBox.TabIndex = 6;
-            this.phaseTextBox.TextChanged += new System.EventHandler(this.PhaseTextBox_TextChanged);
             // 
             // frequencyLabel
             // 
@@ -111,10 +111,10 @@
             // frequencyTextBox
             // 
             this.frequencyTextBox.Location = new System.Drawing.Point(150, 130);
+            this.frequencyTextBox.MaxLength = 12;
             this.frequencyTextBox.Name = "frequencyTextBox";
             this.frequencyTextBox.Size = new System.Drawing.Size(100, 22);
             this.frequencyTextBox.TabIndex = 4;
-            this.frequencyTextBox.TextChanged += new System.EventHandler(this.FrequencyTextBox_TextChanged);
             // 
             // cosRadioButton
             // 
@@ -125,7 +125,6 @@
             this.cosRadioButton.TabIndex = 3;
             this.cosRadioButton.Text = "Cos";
             this.cosRadioButton.UseVisualStyleBackColor = true;
-            this.cosRadioButton.CheckedChanged += new System.EventHandler(this.CosRadioButton_CheckedChanged);
             // 
             // sinRadioButton
             // 
@@ -136,7 +135,6 @@
             this.sinRadioButton.TabIndex = 2;
             this.sinRadioButton.Text = "Sin";
             this.sinRadioButton.UseVisualStyleBackColor = true;
-            this.sinRadioButton.CheckedChanged += new System.EventHandler(this.SinRadioButton_CheckedChanged);
             // 
             // amplitudeLabel
             // 
@@ -150,10 +148,11 @@
             // amplitudeTextBox
             // 
             this.amplitudeTextBox.Location = new System.Drawing.Point(150, 50);
+            this.amplitudeTextBox.MaxLength = 10;
             this.amplitudeTextBox.Name = "amplitudeTextBox";
             this.amplitudeTextBox.Size = new System.Drawing.Size(100, 22);
             this.amplitudeTextBox.TabIndex = 0;
-            this.amplitudeTextBox.TextChanged += new System.EventHandler(this.AmplitudeTextBox_TextChanged);
+            this.amplitudeTextBox.TextChanged += new System.EventHandler(this.amplitudeTextBox_TextChanged);
             // 
             // AddNewHarmonicButton
             // 
@@ -268,7 +267,7 @@
             // 
             this.phaseErrorProvider.ContainerControl = this;
             // 
-            // MainMenu
+            // MainMenuView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -280,7 +279,7 @@
             this.Controls.Add(this.HarmonicProperties);
             this.MaximumSize = new System.Drawing.Size(753, 804);
             this.MinimumSize = new System.Drawing.Size(653, 704);
-            this.Name = "MainMenu";
+            this.Name = "MainMenuView";
             this.Load += new System.EventHandler(this.MainMenu_Load);
             this.HarmonicProperties.ResumeLayout(false);
             this.HarmonicProperties.PerformLayout();

@@ -80,27 +80,31 @@
     <Compile Include="Util\Constants.cs" />
     <Compile Include="Util\Convertor.cs" />
     <Compile Include="Util\Validator.cs" />
-    <Compile Include="View\AddingHarmonicsView.cs">
+    <Compile Include="View\AddingHarmonic\AddingHarmonicsView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\AddingHarmonicsView.Designer.cs">
+    <Compile Include="View\AddingHarmonic\AddingHarmonicsView.Designer.cs">
       <DependentUpon>AddingHarmonicsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\IHarmonicContainerObserver.cs" />
     <Compile Include="Model\IHarmonicObserver.cs" />
-    <Compile Include="View\HarmonicContainerVizualization.cs" />
-    <Compile Include="View\MainMenuView.cs">
+    <Compile Include="View\MainMenu\EventHandlers\FrequencyEventHandler.cs" />
+    <Compile Include="View\MainMenu\EventHandlers\HarmonicKindEventHandler.cs" />
+    <Compile Include="View\MainMenu\EventHandlers\PhaseEventHandler.cs" />
+    <Compile Include="View\MainMenu\HarmonicContainerVizualizer.cs" />
+    <Compile Include="View\MainMenu\EventHandlers\AmplitudeEventHandler.cs" />
+    <Compile Include="View\MainMenu\MainMenuView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\MainMenuView.Designer.cs">
+    <Compile Include="View\MainMenu\MainMenuView.Designer.cs">
       <DependentUpon>MainMenuView.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="View\AddingHarmonicsView.resx">
+    <EmbeddedResource Include="View\AddingHarmonic\AddingHarmonicsView.resx">
       <DependentUpon>AddingHarmonicsView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\MainMenuView.resx">
+    <EmbeddedResource Include="View\MainMenu\MainMenuView.resx">
       <DependentUpon>MainMenuView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -126,5 +130,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

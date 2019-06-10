@@ -6,17 +6,17 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ChartDrawer.View
 {
-    public class HarmonicContainerVizualization
+    public class HarmonicContainerVizualizer : IHarmonicContainerObserver
     {
-        private const double COORDINATE_STEP = 0.5;
-        private const int COORDINATE_AMOUNT = 20;
+        private const double COORDINATE_STEP = 0.05;
+        private const int COORDINATE_AMOUNT = 100;
 
         private double [,] _harmonicChartCoordinate;
         private IHarmonicContainerPresentation _harmonicContainer;
         private Chart _chart;
         private DataGridView _tableView;
 
-        public HarmonicContainerVizualization( IHarmonicContainerPresentation harmonicContainer, TabPage tabPage, DataGridView tableView )
+        public HarmonicContainerVizualizer( IHarmonicContainerPresentation harmonicContainer, TabPage tabPage, DataGridView tableView )
         {
             _harmonicContainer = harmonicContainer;
             _chart = new Chart
@@ -28,6 +28,16 @@ namespace ChartDrawer.View
             InitializeTable();
         }
 
+        public void AddedNewHarmonic( int index )
+        {
+            AddCoordinateNewHarmonic( index );
+        }
+
+        public void RemovedHarmonic( int index )
+        {
+            Update();
+        }
+
         public void Update()
         {
             UpdateHarmonicChartYCoordinate();
@@ -35,7 +45,7 @@ namespace ChartDrawer.View
             FillTableYValue();
         }
 
-        public void AddNewHarmonic(int index)
+        public void AddCoordinateNewHarmonic(int index)
         {
             var harmonics = _harmonicContainer.GetAllPresentation();
             AddHarmonicYCoordinate( harmonics [ index ] );
@@ -64,7 +74,7 @@ namespace ChartDrawer.View
             _chart.ChartAreas.Clear();
             _chart.ChartAreas.Add( new ChartArea( Constants.CHART_AREA_NAME ) );
             _chart.ChartAreas [ 0 ].AxisX.Minimum = 0;
-            _chart.ChartAreas [ 0 ].AxisX.Maximum = COORDINATE_STEP * 12;
+            _chart.ChartAreas [ 0 ].AxisX.Maximum = COORDINATE_STEP * COORDINATE_AMOUNT;
             Series mySeriesOfPoint = new Series
             {
                 ChartType = SeriesChartType.Spline,
@@ -73,7 +83,7 @@ namespace ChartDrawer.View
             int rows = _harmonicChartCoordinate.GetUpperBound( 0 ) + 1;
             for ( int i = 0; i < rows; i++ )
             {
-                mySeriesOfPoint.Points.AddXY( _harmonicChartCoordinate [ i, 0 ], _harmonicChartCoordinate [ i, 1 ] );
+                mySeriesOfPoint.Points.AddXY( Math.Round(_harmonicChartCoordinate [ i, 0 ], 2), Math.Round(_harmonicChartCoordinate [ i, 1 ], 2) );
             }
             _chart.Series.Add( mySeriesOfPoint );
         }

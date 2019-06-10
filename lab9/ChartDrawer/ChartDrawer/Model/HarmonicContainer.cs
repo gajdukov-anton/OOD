@@ -1,23 +1,26 @@
 ﻿using System.Collections.Generic;
-using System;
 
 namespace ChartDrawer.Model
 {
     public class HarmonicContainer : IHarmonicContainer
     {
         private List<IHarmonic> _harmonics = new List<IHarmonic>();
-        private IHarmonicContainerObserver _observer;
+        private List<IHarmonicContainerObserver> _observers;
 
         public HarmonicContainer()
         {
+            _observers = new List<IHarmonicContainerObserver>();
         }
 
         public void AddHarmonic( IHarmonic harmonic )
         {
             _harmonics.Add( harmonic );
-            if ( _observer != null )
+            if ( _observers != null )
             {
-                _observer.AddedNewHarmonic( _harmonics.Count - 1 );
+                foreach ( var observer in _observers )
+                {
+                    observer.AddedNewHarmonic( _harmonics.Count - 1 );
+                }
             }
         }
 
@@ -26,9 +29,12 @@ namespace ChartDrawer.Model
             if ( index >= 0 && index < _harmonics.Count )
             {
                 _harmonics.RemoveAt( index );
-                if ( _observer != null )
+                if ( _observers != null )
                 {
-                    _observer.RemovedHarmonic( index );
+                    foreach ( var observer in _observers )
+                    {
+                        observer.RemovedHarmonic( index );
+                    }
                 }
                 return;
             }
@@ -39,17 +45,12 @@ namespace ChartDrawer.Model
             return _harmonics;
         }
 
-        public int GetHarmonicCount()
+        public void AddObserver( IHarmonicContainerObserver observer )
         {
-            return _harmonics.Count;
-        }
-        
-        public void SetViewObserver( IHarmonicContainerObserver observer )
-        {
-            _observer = observer;
+            _observers.Add( observer );
         }
 
-        public IHarmonicPresentation[] GetAllPresentation()
+        public IHarmonicPresentation [] GetAllPresentation()
         {
             return _harmonics.ToArray();
         }

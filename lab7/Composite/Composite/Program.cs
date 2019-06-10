@@ -1,8 +1,9 @@
-﻿using Composite.Drawable;
-using Composite.Groups;
+﻿using Composite.Groups;
+using Composite.Shape;
+using Composite.Style;
 using System;
 using System.Drawing;
-using Rectangle = Composite.Drawable.Rectangle;
+using Rectangle = Composite.Shape.Rectangle;
 
 namespace Composite
 {
@@ -10,15 +11,15 @@ namespace Composite
     {
         static void Main( string [] args )
         {
-            var canvas = new Canvas.Canvas( Console.Out, 1000, 1000 );
+            var canvas = new Canvas.SkiaCanvas( 1000, 1000 );
 
             var slide = new Slide( 1000, 1000 );
 
-            var sunFillStyle = new Style( Color.Yellow, true );
+            var sunFillStyle = new Style.Style( Color.Yellow, true );
             var sunOutLineStyle = new OutLineStyle( Color.Orange, true, 5 );
-            var firstFloorFillStyle = new Style( Color.Brown, true );
+            var firstFloorFillStyle = new Style.Style( Color.Brown, true );
             var firstFloorOutLineStyle = new OutLineStyle( Color.Red, true, 5 );
-            var secondFloorFillStyle = new Style( Color.Green, true );
+            var secondFloorFillStyle = new Style.Style( Color.Green, true );
             var secondFloorOutLineStyle = new OutLineStyle( Color.GreenYellow, true, 5 );
 
             var roofFrame = new Rect( 200, 200, 95, 100 );

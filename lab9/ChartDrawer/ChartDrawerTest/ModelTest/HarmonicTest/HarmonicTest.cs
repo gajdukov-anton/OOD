@@ -12,7 +12,7 @@ namespace ChartDrawerTest.ModelTest.HarmonicTest
             IHarmonic harmonic = new Harmonic();
             var harmonicObserver = new HarmonicObserver();
 
-            harmonic.SetViewObserver( harmonicObserver );
+            harmonic.SetObserver( harmonicObserver );
             harmonic.SetAmplitude( 10 );
 
             Assert.IsTrue( harmonicObserver.PropertiesChanged );
@@ -33,7 +33,7 @@ namespace ChartDrawerTest.ModelTest.HarmonicTest
             IHarmonic harmonic = new Harmonic();
             var harmonicObserver = new HarmonicObserver();
 
-            harmonic.SetViewObserver( harmonicObserver );
+            harmonic.SetObserver( harmonicObserver );
             harmonic.SetFrequency( 10 );
 
             Assert.IsTrue( harmonicObserver.PropertiesChanged );
@@ -54,7 +54,7 @@ namespace ChartDrawerTest.ModelTest.HarmonicTest
             IHarmonic harmonic = new Harmonic();
             var harmonicObserver = new HarmonicObserver();
 
-            harmonic.SetViewObserver( harmonicObserver );
+            harmonic.SetObserver( harmonicObserver );
             harmonic.SetPhase( 10 );
 
             Assert.IsTrue( harmonicObserver.PropertiesChanged );
@@ -75,7 +75,7 @@ namespace ChartDrawerTest.ModelTest.HarmonicTest
             IHarmonic harmonic = new Harmonic();
             var harmonicObserver = new HarmonicObserver();
 
-            harmonic.SetViewObserver( harmonicObserver );
+            harmonic.SetObserver( harmonicObserver );
             harmonic.SetHarmonicKind( HarmonicKind.Sin );
 
             Assert.IsTrue( harmonicObserver.PropertiesChanged );

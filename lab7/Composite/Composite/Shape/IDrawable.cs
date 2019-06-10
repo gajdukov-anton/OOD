@@ -1,6 +1,6 @@
 ﻿using Composite.Canvas;
 
-namespace Composite.Drawable
+namespace Composite.Shape
 {
     public interface IDrawable
     {

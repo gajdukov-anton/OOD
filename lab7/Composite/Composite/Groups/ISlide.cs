@@ -1,7 +1,7 @@
-﻿using Composite.Groups;
+﻿using Composite.Shape;
 using System.Drawing;
 
-namespace Composite.Drawable
+namespace Composite.Groups
 {
     public interface ISlide : IDrawable
     {

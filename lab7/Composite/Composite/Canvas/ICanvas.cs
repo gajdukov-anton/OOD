@@ -13,6 +13,6 @@ namespace Composite.Canvas
         void DrawEllipse( Point center, double width, double height );
 
         void FillEllipse( Point center, double width, double height );
-        void DrawFillShapeByPoints(List<Point> lines);
+        void FillPolygon(List<Point> vertices );
     }
 }

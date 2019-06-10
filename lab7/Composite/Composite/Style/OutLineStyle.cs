@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Composite.Drawable
+namespace Composite.Style
 {
     public class OutLineStyle : Style, IOutLineStyle
     {

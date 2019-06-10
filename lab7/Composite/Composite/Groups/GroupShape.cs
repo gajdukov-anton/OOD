@@ -1,8 +1,8 @@
 ﻿using Composite.Canvas;
-using Composite.Drawable;
+using Composite.Shape;
+using Composite.Style;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 
 namespace Composite.Groups
 {
@@ -10,13 +10,13 @@ namespace Composite.Groups
     {
         private List<IShape> _shapes;
         private OutLineGroupStyle _outLineStyle;
-        private GroupStyle _fillStyle;
+        private GroupStyle<IStyle> _fillStyle;
 
         public GroupShape()
         {
             _shapes = new List<IShape>();
-            _outLineStyle = new OutLineGroupStyle( CreateOutLineStyle() );
-            _fillStyle = new GroupStyle( CreateBaseStyle() );
+            _outLineStyle = new OutLineGroupStyle( GetOutLineStyleFromAllShapes() );
+            _fillStyle = new GroupStyle<IStyle>( GetBaseStyleFromAllShapes() );
         }
 
         public void Draw( ICanvas canvas )
@@ -90,6 +90,7 @@ namespace Composite.Groups
 
         private Rect? CalculateShapesFrame()
         {
+            bool wasNotNullFrame = false;
             double left = double.MaxValue;
             double top = double.MaxValue;
             double maxXCor = double.MinValue;
@@ -97,6 +98,11 @@ namespace Composite.Groups
 
             foreach ( var shape in _shapes )
             {
+                if ( shape.GetFrame() == null )
+                {
+                    continue;
+                }
+                wasNotNullFrame = true;
                 left = shape.GetFrame().Value.left.CompareTo( left ) > 0 ? left : shape.GetFrame().Value.left;
                 top = shape.GetFrame().Value.top.CompareTo( top ) > 0 ? top : shape.GetFrame().Value.top;
 
@@ -107,12 +113,12 @@ namespace Composite.Groups
                 maxYCor = maxYCor.CompareTo( yCor ) > 0 ? maxYCor : yCor;
             }
 
-            return new Rect( left, maxXCor - left, top, maxYCor - top );
+            return wasNotNullFrame ? ( Rect? ) new Rect( left, maxXCor - left, top, maxYCor - top ) : null;
         }
 
         private void SetNewFrameToShapes( Rect frame )
         {
-            if ( GetShapesCount() > 0 )
+            if ( GetShapesCount() > 0 && GetFrame().HasValue )
             {
                 var prevFrame = GetFrame();
                 double varianceX = frame.width / prevFrame.Value.width;
@@ -120,6 +126,10 @@ namespace Composite.Groups
 
                 foreach ( var shape in _shapes )
                 {
+                    if ( shape.GetFrame() == null )
+                    {
+                        continue;
+                    }
                     var incrementX = shape.GetFrame().Value.left - prevFrame.Value.left;
                     var incrementY = shape.GetFrame().Value.top - prevFrame.Value.top;
                     var newFrame = new Rect(
@@ -137,7 +147,7 @@ namespace Composite.Groups
             return frame.height > 0 && frame.width > 0;
         }
 
-        private IEnumerable<IOutLineStyle> CreateOutLineStyle()
+        private IEnumerable<IOutLineStyle> GetOutLineStyleFromAllShapes()
         {
             foreach ( var shape in _shapes )
             {
@@ -145,7 +155,7 @@ namespace Composite.Groups
             }
         }
 
-        private IEnumerable<IStyle> CreateBaseStyle()
+        private IEnumerable<IStyle> GetBaseStyleFromAllShapes()
         {
             foreach ( var shape in _shapes )
             {

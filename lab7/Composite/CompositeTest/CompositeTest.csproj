@@ -51,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GroupShapeTest.cs" />
+    <Compile Include="GroupStyleTest.cs" />
+    <Compile Include="OutLineGroupStyleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

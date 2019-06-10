@@ -6,6 +6,6 @@
         void SetFrequency( double frequency );
         void SetPhase( double phase );
         void SetHarmonicKind( HarmonicKind kind );
-        void SetViewObserver( IHarmonicObserver harmonicObserver );
+        void SetObserver( IHarmonicObserver harmonicObserver );
     }
 }

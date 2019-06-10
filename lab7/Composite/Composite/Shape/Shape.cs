@@ -1,12 +1,13 @@
 ﻿using Composite.Canvas;
-using System.Collections.Generic;
+using Composite.Style;
+using System;
 
-namespace Composite.Drawable
+namespace Composite.Shape
 {
     public abstract class Shape : IShape
     {
         protected IOutLineStyle _outLineStyle = new OutLineStyle();
-        protected IStyle _fillStyle = new Style();
+        protected IStyle _fillStyle = new Style.Style();
         protected Rect _frame;
 
         public Shape( Rect frame, IStyle fillStyle = null, IOutLineStyle outLineStyle = null)
@@ -35,25 +36,19 @@ namespace Composite.Drawable
 
         public void SetFrame( Rect rect )
         {
-            _frame = rect;
-        }
-
-        protected abstract List<Point> GetPoints();
-
-        protected void SetLineColorToCanvas( ICanvas canvas )
-        {
-            if ( _fillStyle.IsEnable() )
+            if ( ValidateFrame( rect ) )
             {
-                canvas.SetLineColor( _fillStyle.GetColor().ToArgb() );
+                _frame = rect;
+            }
+            else
+            {
+                throw new ArgumentException( "Frame height and weight must be over 0" );
             }
         }
 
-        protected void SetLineWidth( ICanvas canvas )
+        private bool ValidateFrame( Rect frame )
         {
-            if ( _fillStyle.IsEnable() )
-            {
-                canvas.SetLineWidth( _outLineStyle.GetLineWidth() ?? 0 );
-            }
+            return frame.height >= 0 && frame.width >= 0;
         }
     }
 }

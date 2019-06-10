@@ -1,4 +1,4 @@
-﻿using Composite.Drawable;
+﻿using Composite.Shape;
 
 namespace Composite.Groups
 {

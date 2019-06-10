@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Composite.Drawable
+namespace Composite.Style
 {
     public class Style : IStyle
     {
@@ -27,7 +27,7 @@ namespace Composite.Drawable
             return _color;
         }
 
-        public bool IsEnable()
+        public bool IsEnabled()
         {
             return _isEnable;
         }

@@ -1,4 +1,4 @@
-﻿namespace Composite.Drawable
+﻿namespace Composite.Style
 {
     public interface IOutLineStyle : IStyle
     {

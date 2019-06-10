@@ -1,4 +1,4 @@
-﻿namespace ChartDrawer.View
+﻿namespace ChartDrawer.View.AddingHarmonic
 {
     partial class AddingHarmonicsView
     {
@@ -114,6 +114,7 @@
             // phaseTextBox
             // 
             this.phaseTextBox.Location = new System.Drawing.Point(146, 162);
+            this.phaseTextBox.MaxLength = 10;
             this.phaseTextBox.Name = "phaseTextBox";
             this.phaseTextBox.Size = new System.Drawing.Size(100, 22);
             this.phaseTextBox.TabIndex = 7;
@@ -131,6 +132,7 @@
             // frequencyTextBox
             // 
             this.frequencyTextBox.Location = new System.Drawing.Point(146, 122);
+            this.frequencyTextBox.MaxLength = 10;
             this.frequencyTextBox.Name = "frequencyTextBox";
             this.frequencyTextBox.Size = new System.Drawing.Size(100, 22);
             this.frequencyTextBox.TabIndex = 5;
@@ -172,6 +174,7 @@
             // amplitudeTextBox
             // 
             this.amplitudeTextBox.Location = new System.Drawing.Point(146, 42);
+            this.amplitudeTextBox.MaxLength = 10;
             this.amplitudeTextBox.Name = "amplitudeTextBox";
             this.amplitudeTextBox.Size = new System.Drawing.Size(100, 22);
             this.amplitudeTextBox.TabIndex = 1;
@@ -198,7 +201,7 @@
             // 
             this.phaseErrorProvider.ContainerControl = this;
             // 
-            // AddingHarmonics
+            // AddingHarmonicsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -206,7 +209,7 @@
             this.Controls.Add(this.addingNewHarmonicBox);
             this.MaximumSize = new System.Drawing.Size(321, 418);
             this.MinimumSize = new System.Drawing.Size(321, 418);
-            this.Name = "AddingHarmonics";
+            this.Name = "AddingHarmonicsView";
             this.Text = "AddingNewHarmonics";
             this.addingNewHarmonicBox.ResumeLayout(false);
             this.addingNewHarmonicBox.PerformLayout();

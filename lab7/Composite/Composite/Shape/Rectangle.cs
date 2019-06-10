@@ -1,22 +1,23 @@
 ﻿using System.Collections.Generic;
 using Composite.Canvas;
+using Composite.Style;
 
-namespace Composite.Drawable
+namespace Composite.Shape
 {
     public class Rectangle : Shape
     {
-        public Rectangle(Rect frame, Style fillStyle = null, OutLineStyle outLineStyle = null)
+        public Rectangle(Rect frame, IStyle fillStyle = null, IOutLineStyle outLineStyle = null)
             :base(frame, fillStyle, outLineStyle)
         { }
 
         public override void Draw( ICanvas canvas )
         {
-            if (_fillStyle.IsEnable())
+            if (_fillStyle.IsEnabled())
             {
                 canvas.SetFillColor( _fillStyle.GetColor().ToArgb() );
-                canvas.DrawFillShapeByPoints( GetPoints() );
+                canvas.FillPolygon( GetPoints() );
             }
-            if (_outLineStyle.IsEnable())
+            if (_outLineStyle.IsEnabled())
             {
                 canvas.SetLineColor( _outLineStyle.GetColor().ToArgb() );
                 canvas.SetLineWidth( _outLineStyle.GetLineWidth() ?? 0 );
@@ -27,7 +28,7 @@ namespace Composite.Drawable
             }
         }
 
-        protected override List<Point> GetPoints()
+        private List<Point> GetPoints()
         {
             var result = new List<Point>
             {

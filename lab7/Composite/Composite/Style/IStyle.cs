@@ -1,12 +1,11 @@
 ﻿using System.Drawing;
 
-namespace Composite.Drawable
+namespace Composite.Style
 {
     public interface IStyle
     {
-        bool IsEnable();
+        bool IsEnabled();
         void Enable( bool enable );
-
         Color GetColor();
         void SetColor( Color color );   
     }

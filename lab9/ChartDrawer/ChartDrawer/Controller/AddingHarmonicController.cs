@@ -1,5 +1,6 @@
 ﻿using ChartDrawer.Model;
 using ChartDrawer.View;
+using ChartDrawer.View.AddingHarmonic;
 
 namespace ChartDrawer.Controller
 {
@@ -16,7 +17,7 @@ namespace ChartDrawer.Controller
             _newHarmonicObserver = newHarmonicObserver;
             _harmonic = new Harmonic();
             _addingNewHarmonicsView = new AddingHarmonicsView( _harmonic, this );
-            _harmonic.SetViewObserver( _addingNewHarmonicsView );
+            _harmonic.SetObserver( _addingNewHarmonicsView );
         }
 
         public void Start()
@@ -26,7 +27,7 @@ namespace ChartDrawer.Controller
 
         public void AddNewHarmonic()
         {
-            _harmonic.SetViewObserver( _newHarmonicObserver );
+            _harmonic.SetObserver( _newHarmonicObserver );
             _harmonicContainer.AddHarmonic( _harmonic );
             _addingNewHarmonicsView.Close();
         }

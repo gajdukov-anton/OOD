@@ -8,5 +8,10 @@ namespace ChartDrawer.Util
         {
             return double.TryParse( value, out double result ) ? ( double? ) result : null;
         }
+
+        public static bool CanProcessTextBoxStringValue( TextBox textBox, int selectedItem )
+        {
+            return textBox.Focused && !string.IsNullOrEmpty( textBox.Text ) && selectedItem != -1;
+        }
     }
 }

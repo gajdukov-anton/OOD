@@ -1,4 +1,4 @@
-﻿namespace Composite.Drawable
+﻿namespace Composite.Shape
 {
     public struct Rect
     {

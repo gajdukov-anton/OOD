@@ -1,5 +1,5 @@
 ﻿using ChartDrawer.Model;
-using ChartDrawer.View;
+using ChartDrawer.View.MainMenu;
 
 namespace ChartDrawer.Controller
 {
@@ -12,7 +12,7 @@ namespace ChartDrawer.Controller
         {
             _harmonicContainer = harmonicContainer;
             MainMenuView = new MainMenuView( _harmonicContainer, this );
-            _harmonicContainer.SetViewObserver( MainMenuView );
+            _harmonicContainer.AddObserver( MainMenuView );
         }
 
         public void RemoveHarmonic( int index )

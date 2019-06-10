@@ -12,7 +12,7 @@ namespace ChartDrawerTest.ModelTest.HarmonicContainerTest
             IHarmonicContainer harmonicContainer = new HarmonicContainer();
             var observer = new HarmonicContainerObserver();
 
-            harmonicContainer.SetViewObserver( observer );
+            harmonicContainer.AddObserver( observer );
             harmonicContainer.AddHarmonic( new Harmonic() );
 
             Assert.AreEqual( 0, observer.Index );
@@ -36,7 +36,7 @@ namespace ChartDrawerTest.ModelTest.HarmonicContainerTest
             IHarmonicContainer harmonicContainer = new HarmonicContainer();
             var observer = new HarmonicContainerObserver();
 
-            harmonicContainer.SetViewObserver( observer );
+            harmonicContainer.AddObserver( observer );
             harmonicContainer.AddHarmonic( new Harmonic() );
             harmonicContainer.AddHarmonic( new Harmonic() );
             harmonicContainer.AddHarmonic( new Harmonic() );

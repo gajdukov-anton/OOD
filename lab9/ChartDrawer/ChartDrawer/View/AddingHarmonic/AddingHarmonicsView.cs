@@ -4,7 +4,7 @@ using ChartDrawer.Util;
 using System;
 using System.Windows.Forms;
 
-namespace ChartDrawer.View
+namespace ChartDrawer.View.AddingHarmonic
 {
     public partial class AddingHarmonicsView : Form, IHarmonicObserver
     {

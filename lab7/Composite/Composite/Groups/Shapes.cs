@@ -1,4 +1,4 @@
-﻿using Composite.Drawable;
+﻿using Composite.Shape;
 using System.Collections.Generic;
 
 namespace Composite.Groups
@@ -6,6 +6,11 @@ namespace Composite.Groups
     public class Shapes : IShapes
     {
         private List<IShape> _shapes;
+
+        public Shapes()
+        {
+            _shapes = new List<IShape>();
+        }
 
         public IShape GetShapeAtIndex( int index )
         {
